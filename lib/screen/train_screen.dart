@@ -15,15 +15,29 @@ class TrainScreen extends StatelessWidget {
 				padding: EdgeInsets.zero,
 				children: [
 					RouteWidget(),
-					DateWidget(),
-					PassengerWidget(),
+					SizedBox(height: 15.0),
+					BoxDecorationWidget(title: 'Tanggal Keberangkatan', content: Text('yyyy-mm-dd'), onPressed: () => print('date')),
+					SizedBox(height: 15.0),
+					BoxDecorationWidget(title: 'Penumpang', content: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [passenger('adult', 1), SizedBox(width: 1.0), passenger('infant', 0)]), onPressed: () => print('pax')),
 				]
 			),
 		);
 	}
+	
+	Widget passenger(String type, int count) {
+		return Column(children: [Text('${count}', style: TextStyle(fontSize: 18.0)), Text(type, style: TextStyle(fontSize: 12.0, color: Colors.grey[400]))]);
+	}
 }
 
 class RouteWidget extends StatelessWidget {
+	void selectDepart(BuildContext context) {
+		print('depart');
+	}
+	
+	void selectArrival(BuildContext context) {
+		print('arrival');
+	}
+	
 	@override
 	Widget build(BuildContext context) {
 		return Container(
@@ -34,69 +48,65 @@ class RouteWidget extends StatelessWidget {
 				mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 				// crossAxisAlignment: CrossAxisAlignment.center,
 				children: [
-					terminal('GMR', 'Gambir Jakarta'),
-					Icon(Icons.train, color: Colors.white, size: 28.0),
-					terminal('BD', 'Bandung'),
+					TerminalWidget(code: 'GMR', name: 'Gambir Jakarta', onPressed: () => selectDepart(context)),
+					Icon(Icons.train, color: Colors.white, size: 35.0),
+					TerminalWidget(code: 'BD', name: 'Bandung', onPressed: () => selectArrival(context)),
 				],
 			),
 		);
 	}
+}
+
+class TerminalWidget extends StatelessWidget {
+	TerminalWidget({ this.code, this.name, this.onPressed });
 	
-	Widget terminal(String code, String name) {
-		return Column(children:[ Text(code, style: TextStyle(fontSize: 25.0, color: Colors.white)), Text(name, style: TextStyle(fontSize: 10.0, color: Colors.white))]);
-	}
-}
-
-class DateWidget extends StatelessWidget {
+	final String code;
+	final String name; 
+	final VoidCallback onPressed;
+	
 	@override
 	Widget build(BuildContext context) {
-		return Container(
-			padding: EdgeInsets.all(20.0),
+		return InkWell(
+			onTap: onPressed,
 			child: Column(
 				children: [
-					Row(children: [Text('Tanggal Keberangkatan', style: TextStyle(fontSize: 12.0))]),
-					SizedBox(height: 2.0),
-					Container(
-						alignment: Alignment.center,
-						constraints: BoxConstraints(minWidth: 400.0, minHeight: 50.0),
-						decoration: BoxDecoration(
-							border: Border.all(color: Colors.grey[400], width: 1.0),
-							borderRadius: BorderRadius.circular(10.0),
-						),
-						child: Text('yyyy-mm-dd'),
-					),
-				],
+					Text(code, style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.white)),
+					Text(name, style: TextStyle(fontSize: 10.0, color: Colors.white))
+				]
 			),
 		);
 	}
 }
 
-class PassengerWidget extends StatelessWidget {
+
+class BoxDecorationWidget extends StatelessWidget {
+	BoxDecorationWidget({ this.title, this.content, this.onPressed });
+	
+	final title;
+	final Widget content;
+	final VoidCallback onPressed;
+	
 	@override
 	Widget build(BuildContext context) {
-		return Container(
-			padding: EdgeInsets.all(20.0),
-			child: Column(
-				children: [
-					Row(children: [Text('Jumlah Penumpang', style: TextStyle(fontSize: 12.0))]),
-					SizedBox(height: 2.0),
-					Container(
-						alignment: Alignment.center,
-						constraints: BoxConstraints(minWidth: 300.0, minHeight: 50.0),
-						decoration: BoxDecoration(
-							border: Border.all(color: Colors.grey[400], width: 1.0),
-							borderRadius: BorderRadius.circular(10.0),
+		return InkWell(
+			onTap: onPressed,
+			child: Container(
+				padding: EdgeInsets.only(left: 20.0, right: 20.0),
+				child: Column(
+					children: [
+						Row(children: [Text(title, style: TextStyle(fontSize: 12.0, color: Colors.grey[400]))]),
+						SizedBox(height: 2.0),
+						Container(
+							alignment: Alignment.center,
+							constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
+							decoration: BoxDecoration(
+								border: Border.all(color: Colors.grey[400], width: 1.0),
+								borderRadius: BorderRadius.circular(10.0),
+							),
+							child: content,
 						),
-						child: Row(
-							mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-							children: [
-								Text('1'),
-								SizedBox(width: 1.0),
-								Text('0'),
-							],
-						),
-					),
-				],
+					],
+				),
 			),
 		);
 	}
