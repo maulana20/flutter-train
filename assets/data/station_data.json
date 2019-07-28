@@ -1,0 +1,1266 @@
+[
+  {
+    "station_code": "ABR",
+    "station_name": "AMBARAWA"
+  },
+  {
+    "station_code": "AGO",
+    "station_name": "ARGOPURO"
+  },
+  {
+    "station_code": "AI",
+    "station_name": "PASAR ALAI"
+  },
+  {
+    "station_code": "AJ",
+    "station_name": "ARJASA"
+  },
+  {
+    "station_code": "AK",
+    "station_name": "ANGKE"
+  },
+  {
+    "station_code": "AKB",
+    "station_name": "AEKLOBA"
+  },
+  {
+    "station_code": "ATA",
+    "station_name": "ALASTUA"
+  },
+  {
+    "station_code": "ATR",
+    "station_name": "AIR TAWAR"
+  },
+  {
+    "station_code": "AWN",
+    "station_name": "ARJAWINANGUN"
+  },
+  {
+    "station_code": "BAP",
+    "station_name": "BANDARKALIPAH"
+  },
+  {
+    "station_code": "BAT",
+    "station_name": "BARAT"
+  },
+  {
+    "station_code": "BB",
+    "station_name": "BREBES"
+  },
+  {
+    "station_code": "BBD",
+    "station_name": "BABADAN"
+  },
+  {
+    "station_code": "BBG",
+    "station_name": "BRUMBUNG"
+  },
+  {
+    "station_code": "BBK",
+    "station_name": "BABAKAN"
+  },
+  {
+    "station_code": "BBN",
+    "station_name": "BRAMBANAN"
+  },
+  {
+    "station_code": "BBT",
+    "station_name": "BABAT"
+  },
+  {
+    "station_code": "BBU",
+    "station_name": "BLAMBANGANUMPU"
+  },
+  {
+    "station_code": "BD",
+    "station_name": "BANDUNG"
+  },
+  {
+    "station_code": "BDT",
+    "station_name": "BANDARTINGGI"
+  },
+  {
+    "station_code": "BG",
+    "station_name": "BANGIL"
+  },
+  {
+    "station_code": "BH",
+    "station_name": "BOHARAN"
+  },
+  {
+    "station_code": "BIJ",
+    "station_name": "BINJAI"
+  },
+  {
+    "station_code": "BJ",
+    "station_name": "BOJONEGORO"
+  },
+  {
+    "station_code": "BJR",
+    "station_name": "BANJAR"
+  },
+  {
+    "station_code": "BKI",
+    "station_name": "BEKRI"
+  },
+  {
+    "station_code": "BKS",
+    "station_name": "BEKASI"
+  },
+  {
+    "station_code": "BL",
+    "station_name": "BLITAR"
+  },
+  {
+    "station_code": "BMA",
+    "station_name": "BUMIAYU"
+  },
+  {
+    "station_code": "BMG",
+    "station_name": "BLIMBING"
+  },
+  {
+    "station_code": "BNW",
+    "station_name": "BENOWO"
+  },
+  {
+    "station_code": "BOO",
+    "station_name": "BOGOR"
+  },
+  {
+    "station_code": "BRN",
+    "station_name": "BARON"
+  },
+  {
+    "station_code": "BSS",
+    "station_name": "BANGSALSARI"
+  },
+  {
+    "station_code": "BTA",
+    "station_name": "BATURAJA"
+  },
+  {
+    "station_code": "BTK",
+    "station_name": "BATANGKUIS"
+  },
+  {
+    "station_code": "BTT",
+    "station_name": "BATU TULIS"
+  },
+  {
+    "station_code": "BW",
+    "station_name": "BANYUWANGIBARU"
+  },
+  {
+    "station_code": "BWO",
+    "station_name": "BOWERNO"
+  },
+  {
+    "station_code": "CA",
+    "station_name": "CIGANEA"
+  },
+  {
+    "station_code": "CB",
+    "station_name": "CIBATU"
+  },
+  {
+    "station_code": "CBB",
+    "station_name": "CIBEBER"
+  },
+  {
+    "station_code": "CBD",
+    "station_name": "CIBADAK"
+  },
+  {
+    "station_code": "CBR",
+    "station_name": "CIBUNGUR"
+  },
+  {
+    "station_code": "CCL",
+    "station_name": "CICALENGKA"
+  },
+  {
+    "station_code": "CCR",
+    "station_name": "CICURUG"
+  },
+  {
+    "station_code": "CD",
+    "station_name": "CIKADONGDONG"
+  },
+  {
+    "station_code": "CGB",
+    "station_name": "CIGOMBONG"
+  },
+  {
+    "station_code": "CI",
+    "station_name": "CIAMIS"
+  },
+  {
+    "station_code": "CIR",
+    "station_name": "CIROYOM"
+  },
+  {
+    "station_code": "CJ",
+    "station_name": "CIANJUR"
+  },
+  {
+    "station_code": "CJT",
+    "station_name": "CILEJIT"
+  },
+  {
+    "station_code": "CKL",
+    "station_name": "CIKEUSAL"
+  },
+  {
+    "station_code": "CKP",
+    "station_name": "CIKAMPEK"
+  },
+  {
+    "station_code": "CKR",
+    "station_name": "CIKARANG"
+  },
+  {
+    "station_code": "CLD",
+    "station_name": "CILEDUG"
+  },
+  {
+    "station_code": "CLE",
+    "station_name": "CILAME"
+  },
+  {
+    "station_code": "CLG",
+    "station_name": "CILEGON"
+  },
+  {
+    "station_code": "CMD",
+    "station_name": "CIMINDI"
+  },
+  {
+    "station_code": "CME",
+    "station_name": "CERME"
+  },
+  {
+    "station_code": "CMI",
+    "station_name": "CIMAHI"
+  },
+  {
+    "station_code": "CMK",
+    "station_name": "CIMEKAR"
+  },
+  {
+    "station_code": "CN",
+    "station_name": "CIREBON"
+  },
+  {
+    "station_code": "CNP",
+    "station_name": "CIREBONPRUJAKAN"
+  },
+  {
+    "station_code": "CO",
+    "station_name": "COMAL"
+  },
+  {
+    "station_code": "CP",
+    "station_name": "CILACAP"
+  },
+  {
+    "station_code": "CPD",
+    "station_name": "CIPEUNDEUY"
+  },
+  {
+    "station_code": "CPI",
+    "station_name": "CIPARI"
+  },
+  {
+    "station_code": "CRB",
+    "station_name": "CARUBAN"
+  },
+  {
+    "station_code": "CRG",
+    "station_name": "CIREUNGAS"
+  },
+  {
+    "station_code": "CRM",
+    "station_name": "CURAHMALANG"
+  },
+  {
+    "station_code": "CSA",
+    "station_name": "CISAAT"
+  },
+  {
+    "station_code": "CSK",
+    "station_name": "CISAUK"
+  },
+  {
+    "station_code": "CT",
+    "station_name": "CATANG"
+  },
+  {
+    "station_code": "CTH",
+    "station_name": "CIKUDAPATEUH"
+  },
+  {
+    "station_code": "CTR",
+    "station_name": "CITERAS"
+  },
+  {
+    "station_code": "CU",
+    "station_name": "CEPU"
+  },
+  {
+    "station_code": "DAR",
+    "station_name": "DARU"
+  },
+  {
+    "station_code": "DD",
+    "station_name": "DUDUK"
+  },
+  {
+    "station_code": "DEN",
+    "station_name": "DENPASAR"
+  },
+  {
+    "station_code": "DPL",
+    "station_name": "DOPLANG"
+  },
+  {
+    "station_code": "DU",
+    "station_name": "DURI"
+  },
+  {
+    "station_code": "DUK",
+    "station_name": "DUKU"
+  },
+  {
+    "station_code": "DWN",
+    "station_name": "DAWUAN"
+  },
+  {
+    "station_code": "GB",
+    "station_name": "GOMBONG"
+  },
+  {
+    "station_code": "GD",
+    "station_name": "GUNDIH"
+  },
+  {
+    "station_code": "GDB",
+    "station_name": "GEDEBAGE"
+  },
+  {
+    "station_code": "GDG",
+    "station_name": "GEDANGAN"
+  },
+  {
+    "station_code": "GDM",
+    "station_name": "GANDRUNGMANGUN"
+  },
+  {
+    "station_code": "GDS",
+    "station_name": "GANDASOLIH"
+  },
+  {
+    "station_code": "GG",
+    "station_name": "GENENG"
+  },
+  {
+    "station_code": "GK",
+    "station_name": "GADOBANGKONG"
+  },
+  {
+    "station_code": "GLM",
+    "station_name": "GLENMORE"
+  },
+  {
+    "station_code": "GMR",
+    "station_name": "GAMBIR JAKARTA"
+  },
+  {
+    "station_code": "GRM",
+    "station_name": "GARUM"
+  },
+  {
+    "station_code": "GUB",
+    "station_name": "GUBUG"
+  },
+  {
+    "station_code": "HGL",
+    "station_name": "HAURGEULIS"
+  },
+  {
+    "station_code": "HRP",
+    "station_name": "HAURPUGUR"
+  },
+  {
+    "station_code": "IDY",
+    "station_name": "INDRALAYA"
+  },
+  {
+    "station_code": "JAKK",
+    "station_name": "JAKARTA KOTA"
+  },
+  {
+    "station_code": "JBN",
+    "station_name": "JAMBON"
+  },
+  {
+    "station_code": "JBU",
+    "station_name": "JAMBU BARU"
+  },
+  {
+    "station_code": "JG",
+    "station_name": "JOMBANG"
+  },
+  {
+    "station_code": "JN",
+    "station_name": "JENAR"
+  },
+  {
+    "station_code": "JNG",
+    "station_name": "JATINEGARA JAKARTA"
+  },
+  {
+    "station_code": "JR",
+    "station_name": "JEMBER"
+  },
+  {
+    "station_code": "JTB",
+    "station_name": "JATIBARANG"
+  },
+  {
+    "station_code": "JTR",
+    "station_name": "JATIROTO"
+  },
+  {
+    "station_code": "KA",
+    "station_name": "KARANGANYAR"
+  },
+  {
+    "station_code": "KAC",
+    "station_name": "KIARACONDONG"
+  },
+  {
+    "station_code": "KB",
+    "station_name": "KOTABUMI"
+  },
+  {
+    "station_code": "KBR",
+    "station_name": "KALIBARU"
+  },
+  {
+    "station_code": "KBY",
+    "station_name": "KEBAYORAN"
+  },
+  {
+    "station_code": "KD",
+    "station_name": "KEDIRI"
+  },
+  {
+    "station_code": "KDA",
+    "station_name": "KANDANGAN"
+  },
+  {
+    "station_code": "KDB",
+    "station_name": "KEDUNGBANTENG"
+  },
+  {
+    "station_code": "KDH",
+    "station_name": "KEDUNGGEDEH"
+  },
+  {
+    "station_code": "KDN",
+    "station_name": "KEDINDING"
+  },
+  {
+    "station_code": "KE",
+    "station_name": "KARANG TENGAH"
+  },
+  {
+    "station_code": "KEJ",
+    "station_name": "KEDUNGJATI"
+  },
+  {
+    "station_code": "KEN",
+    "station_name": "KRENCENG"
+  },
+  {
+    "station_code": "KG",
+    "station_name": "KEDUNGGALAR"
+  },
+  {
+    "station_code": "KGG",
+    "station_name": "KETANGGUNGAN"
+  },
+  {
+    "station_code": "KGT",
+    "station_name": "KARANGJATI"
+  },
+  {
+    "station_code": "KI",
+    "station_name": "KURAITAJI"
+  },
+  {
+    "station_code": "KIS",
+    "station_name": "KISARAN"
+  },
+  {
+    "station_code": "KJ",
+    "station_name": "KEMRANJEN"
+  },
+  {
+    "station_code": "KK",
+    "station_name": "KLAKAH"
+  },
+  {
+    "station_code": "KLI",
+    "station_name": "KLARI"
+  },
+  {
+    "station_code": "KLT",
+    "station_name": "KALISAT"
+  },
+  {
+    "station_code": "KM",
+    "station_name": "KEBUMEN"
+  },
+  {
+    "station_code": "KMO",
+    "station_name": "KEMAYORAN"
+  },
+  {
+    "station_code": "KNE",
+    "station_name": "KARANGASEM"
+  },
+  {
+    "station_code": "KNN",
+    "station_name": "KRADENAN"
+  },
+  {
+    "station_code": "KNP",
+    "station_name": "KARANG PUCUNG"
+  },
+  {
+    "station_code": "KOS",
+    "station_name": "KOSAMBI"
+  },
+  {
+    "station_code": "KPN",
+    "station_name": "KEPANJEN"
+  },
+  {
+    "station_code": "KPS",
+    "station_name": "KAPAS"
+  },
+  {
+    "station_code": "KPT",
+    "station_name": "KERTAPATI"
+  },
+  {
+    "station_code": "KRA",
+    "station_name": "KARANGANTU"
+  },
+  {
+    "station_code": "KRAI",
+    "station_name": "KARANG SARI"
+  },
+  {
+    "station_code": "KRN",
+    "station_name": "KRIAN"
+  },
+  {
+    "station_code": "KRS",
+    "station_name": "KRAS"
+  },
+  {
+    "station_code": "KSB",
+    "station_name": "KESAMBEN"
+  },
+  {
+    "station_code": "KSL",
+    "station_name": "KALISETAIL"
+  },
+  {
+    "station_code": "KT",
+    "station_name": "KLATEN"
+  },
+  {
+    "station_code": "KTA",
+    "station_name": "KUTOARJO"
+  },
+  {
+    "station_code": "KTP",
+    "station_name": "KETAPANG"
+  },
+  {
+    "station_code": "KTS",
+    "station_name": "KERTOSONO"
+  },
+  {
+    "station_code": "KW",
+    "station_name": "KARAWANG"
+  },
+  {
+    "station_code": "KWG",
+    "station_name": "KAWUNGANTEN"
+  },
+  {
+    "station_code": "KWN",
+    "station_name": "KUTOWINANGUN"
+  },
+  {
+    "station_code": "KYA",
+    "station_name": "KROYA"
+  },
+  {
+    "station_code": "LA",
+    "station_name": "LUBUK ALUNG"
+  },
+  {
+    "station_code": "LAR",
+    "station_name": "LABUANRATU"
+  },
+  {
+    "station_code": "LBJ",
+    "station_name": "LEBAKJERO"
+  },
+  {
+    "station_code": "LBP",
+    "station_name": "LUBUKPAKAM"
+  },
+  {
+    "station_code": "LBY",
+    "station_name": "LUBUK BUAYA"
+  },
+  {
+    "station_code": "LDO",
+    "station_name": "LEDOKOMBO"
+  },
+  {
+    "station_code": "LDT",
+    "station_name": "LIDAH TANAH"
+  },
+  {
+    "station_code": "LEC",
+    "station_name": "LECES"
+  },
+  {
+    "station_code": "LL",
+    "station_name": "LELES"
+  },
+  {
+    "station_code": "LLG",
+    "station_name": "LUBUK LINGGAU"
+  },
+  {
+    "station_code": "LMB",
+    "station_name": "LEMAHABANG"
+  },
+  {
+    "station_code": "LMG",
+    "station_name": "LAMONGAN"
+  },
+  {
+    "station_code": "LMP",
+    "station_name": "LIMAPULUH"
+  },
+  {
+    "station_code": "LN",
+    "station_name": "LANGEN"
+  },
+  {
+    "station_code": "LO",
+    "station_name": "LEUWI GOONG"
+  },
+  {
+    "station_code": "LOS",
+    "station_name": "LOSARI"
+  },
+  {
+    "station_code": "LP",
+    "station_name": "LAMPEGAN"
+  },
+  {
+    "station_code": "LPN",
+    "station_name": "LEMPUYANGAN"
+  },
+  {
+    "station_code": "LT",
+    "station_name": "LAHAT"
+  },
+  {
+    "station_code": "LW",
+    "station_name": "LAWANG"
+  },
+  {
+    "station_code": "MA",
+    "station_name": "MAOS"
+  },
+  {
+    "station_code": "MBM",
+    "station_name": "MEMBANGMUDA"
+  },
+  {
+    "station_code": "MBU",
+    "station_name": "MERBAU"
+  },
+  {
+    "station_code": "MDN",
+    "station_name": "MEDAN"
+  },
+  {
+    "station_code": "ME",
+    "station_name": "MUARA ENIM"
+  },
+  {
+    "station_code": "MER",
+    "station_name": "MERAK"
+  },
+  {
+    "station_code": "MGW",
+    "station_name": "MAGUWO"
+  },
+  {
+    "station_code": "MJ",
+    "station_name": "MAJA"
+  },
+  {
+    "station_code": "ML",
+    "station_name": "MALANG"
+  },
+  {
+    "station_code": "MLK",
+    "station_name": "MALANG KOTA LAMA"
+  },
+  {
+    "station_code": "MN",
+    "station_name": "MADIUN"
+  },
+  {
+    "station_code": "MP",
+    "station_name": "MARTAPURA"
+  },
+  {
+    "station_code": "MR",
+    "station_name": "MOJOKERTO"
+  },
+  {
+    "station_code": "MSG",
+    "station_name": "MASENG"
+  },
+  {
+    "station_code": "MSI",
+    "station_name": "MASWATI"
+  },
+  {
+    "station_code": "NB",
+    "station_name": "NGEBRUK"
+  },
+  {
+    "station_code": "NBO",
+    "station_name": "NGROMBO"
+  },
+  {
+    "station_code": "NDL",
+    "station_name": "NGADILUWIH"
+  },
+  {
+    "station_code": "NG",
+    "station_name": "NAGREG"
+  },
+  {
+    "station_code": "NGN",
+    "station_name": "NEGERIAGUNG"
+  },
+  {
+    "station_code": "NJ",
+    "station_name": "NGANJUK"
+  },
+  {
+    "station_code": "NRR",
+    "station_name": "NEGARARATU"
+  },
+  {
+    "station_code": "NT",
+    "station_name": "NGUNUT"
+  },
+  {
+    "station_code": "NTG",
+    "station_name": "NOTOG"
+  },
+  {
+    "station_code": "PA",
+    "station_name": "PARON"
+  },
+  {
+    "station_code": "PAK",
+    "station_name": "PAUHKAMBAR"
+  },
+  {
+    "station_code": "PB",
+    "station_name": "PROBOLINGGO"
+  },
+  {
+    "station_code": "PBM",
+    "station_name": "PRABUMULIH"
+  },
+  {
+    "station_code": "PC",
+    "station_name": "PUCUK"
+  },
+  {
+    "station_code": "PD",
+    "station_name": "PADANG"
+  },
+  {
+    "station_code": "PDJ",
+    "station_name": "PONDOK RANJI"
+  },
+  {
+    "station_code": "PDL",
+    "station_name": "PADALARANG"
+  },
+  {
+    "station_code": "PGB",
+    "station_name": "PEGADENBARU"
+  },
+  {
+    "station_code": "PGJ",
+    "station_name": "POGAJIH"
+  },
+  {
+    "station_code": "PHA",
+    "station_name": "PADANGHALABAN"
+  },
+  {
+    "station_code": "PK",
+    "station_name": "PEKALONGAN"
+  },
+  {
+    "station_code": "PLD",
+    "station_name": "PLERED"
+  },
+  {
+    "station_code": "PLM",
+    "station_name": "PALMERAH"
+  },
+  {
+    "station_code": "PME",
+    "station_name": "PAMINGKE"
+  },
+  {
+    "station_code": "PML",
+    "station_name": "PEMALANG"
+  },
+  {
+    "station_code": "PMN",
+    "station_name": "PARIAMAN"
+  },
+  {
+    "station_code": "PNT",
+    "station_name": "PASARNGUTER"
+  },
+  {
+    "station_code": "PNW",
+    "station_name": "PANINJAWAN"
+  },
+  {
+    "station_code": "PPR",
+    "station_name": "PAPAR"
+  },
+  {
+    "station_code": "PR",
+    "station_name": "PORONG"
+  },
+  {
+    "station_code": "PRK",
+    "station_name": "PARUNG KUDA"
+  },
+  {
+    "station_code": "PRP",
+    "station_name": "PARUNG PANJANG"
+  },
+  {
+    "station_code": "PS",
+    "station_name": "PASURUAN"
+  },
+  {
+    "station_code": "PSE",
+    "station_name": "PASAR SENEN JAKARTA"
+  },
+  {
+    "station_code": "PSI",
+    "station_name": "PAKISAJI"
+  },
+  {
+    "station_code": "PTR",
+    "station_name": "PETERONGAN"
+  },
+  {
+    "station_code": "PUR",
+    "station_name": "PULURAJA"
+  },
+  {
+    "station_code": "PWK",
+    "station_name": "PURWAKARTA"
+  },
+  {
+    "station_code": "PWS",
+    "station_name": "PURWOSARI"
+  },
+  {
+    "station_code": "PWT",
+    "station_name": "PURWOKERTO"
+  },
+  {
+    "station_code": "RAP",
+    "station_name": "RANTAU PRAPAT"
+  },
+  {
+    "station_code": "RBG",
+    "station_name": "RANDUBLATUNG"
+  },
+  {
+    "station_code": "RBP",
+    "station_name": "RAMBIPUJI"
+  },
+  {
+    "station_code": "RCK",
+    "station_name": "RANCAEKEK"
+  },
+  {
+    "station_code": "RDA",
+    "station_name": "RANDUAGUNG"
+  },
+  {
+    "station_code": "RGP",
+    "station_name": "ROGOJAMPI"
+  },
+  {
+    "station_code": "RGS",
+    "station_name": "RENGAS"
+  },
+  {
+    "station_code": "RH",
+    "station_name": "RENDEH"
+  },
+  {
+    "station_code": "RJ",
+    "station_name": "REJOTANGAN"
+  },
+  {
+    "station_code": "RJS",
+    "station_name": "REJOSARI"
+  },
+  {
+    "station_code": "RK",
+    "station_name": "RANGKASBITUNG"
+  },
+  {
+    "station_code": "RO",
+    "station_name": "REJOSO"
+  },
+  {
+    "station_code": "SB",
+    "station_name": "SURABAYA KOTA"
+  },
+  {
+    "station_code": "SBI",
+    "station_name": "SURABAYA PASAR TURI"
+  },
+  {
+    "station_code": "SBJ",
+    "station_name": "SEI BEJANGKAR"
+  },
+  {
+    "station_code": "SBL",
+    "station_name": "SUMBERGEMPOL"
+  },
+  {
+    "station_code": "SBO",
+    "station_name": "SUMOBITO"
+  },
+  {
+    "station_code": "SBP",
+    "station_name": "SUMBERPUCUNG"
+  },
+  {
+    "station_code": "SDA",
+    "station_name": "SIDOARJO"
+  },
+  {
+    "station_code": "SDI",
+    "station_name": "SEDADI"
+  },
+  {
+    "station_code": "SDM",
+    "station_name": "SUDIMARA"
+  },
+  {
+    "station_code": "SDR",
+    "station_name": "SIDAREJA"
+  },
+  {
+    "station_code": "SG",
+    "station_name": "SERANG"
+  },
+  {
+    "station_code": "SGJ",
+    "station_name": "SINGOJURUH"
+  },
+  {
+    "station_code": "SGS",
+    "station_name": "SINGOSARI"
+  },
+  {
+    "station_code": "SGU",
+    "station_name": "SURABAYA GUBENG"
+  },
+  {
+    "station_code": "SGUX",
+    "station_name": "SURABAYA GUBENGX"
+  },
+  {
+    "station_code": "SI",
+    "station_name": "SUKABUMI"
+  },
+  {
+    "station_code": "SIR",
+    "station_name": "SIANTAR"
+  },
+  {
+    "station_code": "SK",
+    "station_name": "SOLOJEBRES"
+  },
+  {
+    "station_code": "SKH",
+    "station_name": "SUKOHARJO"
+  },
+  {
+    "station_code": "SKM",
+    "station_name": "SUKOMORO"
+  },
+  {
+    "station_code": "SKT",
+    "station_name": "SASAKSAAT"
+  },
+  {
+    "station_code": "SLM",
+    "station_name": "SALEM"
+  },
+  {
+    "station_code": "SLO",
+    "station_name": "SOLOBALAPAN"
+  },
+  {
+    "station_code": "SLS",
+    "station_name": "SULUSUBAN"
+  },
+  {
+    "station_code": "SLW",
+    "station_name": "SLAWI"
+  },
+  {
+    "station_code": "SMB",
+    "station_name": "SEMBUNG"
+  },
+  {
+    "station_code": "SMC",
+    "station_name": "SEMARANGPONCOL"
+  },
+  {
+    "station_code": "SMT",
+    "station_name": "SEMARANGTAWANG"
+  },
+  {
+    "station_code": "SPH",
+    "station_name": "SUMPIUH"
+  },
+  {
+    "station_code": "SPJ",
+    "station_name": "SEPANJANG"
+  },
+  {
+    "station_code": "SR",
+    "station_name": "SRAGEN"
+  },
+  {
+    "station_code": "SRD",
+    "station_name": "SARADAN"
+  },
+  {
+    "station_code": "SRJ",
+    "station_name": "SUMBERREJO"
+  },
+  {
+    "station_code": "SRP",
+    "station_name": "SERPONG"
+  },
+  {
+    "station_code": "STA",
+    "station_name": "SOLOKOTA"
+  },
+  {
+    "station_code": "SUT",
+    "station_name": "SUKATANI"
+  },
+  {
+    "station_code": "SWD",
+    "station_name": "SUBERWADUNG"
+  },
+  {
+    "station_code": "TA",
+    "station_name": "TULUNGAGUNG"
+  },
+  {
+    "station_code": "TAB",
+    "station_name": "TABING"
+  },
+  {
+    "station_code": "TAL",
+    "station_name": "TALUN"
+  },
+  {
+    "station_code": "TB",
+    "station_name": "TAMBUN"
+  },
+  {
+    "station_code": "TBI",
+    "station_name": "TEBING TINGGI"
+  },
+  {
+    "station_code": "TEJ",
+    "station_name": "TENJO"
+  },
+  {
+    "station_code": "TES",
+    "station_name": "TANDES"
+  },
+  {
+    "station_code": "TG",
+    "station_name": "TEGAL"
+  },
+  {
+    "station_code": "TGA",
+    "station_name": "TANGGULANGIN"
+  },
+  {
+    "station_code": "TGI",
+    "station_name": "TEGINENENG"
+  },
+  {
+    "station_code": "TGL",
+    "station_name": "TANGGUL"
+  },
+  {
+    "station_code": "TGN",
+    "station_name": "TANJUNG"
+  },
+  {
+    "station_code": "TGR",
+    "station_name": "TEMUGURUH"
+  },
+  {
+    "station_code": "TGS",
+    "station_name": "TIGARAKSA"
+  },
+  {
+    "station_code": "THB",
+    "station_name": "TANAH ABANG"
+  },
+  {
+    "station_code": "TI",
+    "station_name": "TEBINGTINGGI"
+  },
+  {
+    "station_code": "TLN",
+    "station_name": "TULANGAN"
+  },
+  {
+    "station_code": "TLY",
+    "station_name": "TULUNGBUYUT"
+  },
+  {
+    "station_code": "TNB",
+    "station_name": "TANJUNGBALAI"
+  },
+  {
+    "station_code": "TNK",
+    "station_name": "TANJUNGKARANG"
+  },
+  {
+    "station_code": "TOJB",
+    "station_name": "TONJONG BARU"
+  },
+  {
+    "station_code": "TRK",
+    "station_name": "TARIK"
+  },
+  {
+    "station_code": "TSM",
+    "station_name": "TASIKMALAYA"
+  },
+  {
+    "station_code": "TW",
+    "station_name": "TELAWA"
+  },
+  {
+    "station_code": "WAY",
+    "station_name": "WAYTUBA"
+  },
+  {
+    "station_code": "WG",
+    "station_name": "WLINGI"
+  },
+  {
+    "station_code": "WK",
+    "station_name": "WALIKUKUN"
+  },
+  {
+    "station_code": "WLG",
+    "station_name": "WILANGAN"
+  },
+  {
+    "station_code": "WLR",
+    "station_name": "WELERI"
+  },
+  {
+    "station_code": "WLT",
+    "station_name": "WALANTAKA"
+  },
+  {
+    "station_code": "WNG",
+    "station_name": "WONOGIRI"
+  },
+  {
+    "station_code": "WNS",
+    "station_name": "WONOSARI"
+  },
+  {
+    "station_code": "WO",
+    "station_name": "WONOKROMO"
+  },
+  {
+    "station_code": "WOX",
+    "station_name": "WONOKROMOX"
+  },
+  {
+    "station_code": "WR",
+    "station_name": "WARU"
+  },
+  {
+    "station_code": "WT",
+    "station_name": "WATES"
+  },
+  {
+    "station_code": "YK",
+    "station_name": "YOGYAKARTA"
+  },
+  {
+    "station_code": "MRI",
+    "station_name": "MANGGARAI"
+  },
+  {
+    "station_code": "TPK",
+    "station_name": "TANJUNG PRIUK"
+  }
+]
