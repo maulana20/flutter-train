@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import 'train/bloc/train_details_bloc.dart';
 import '../model/station.dart';
 import '../api/station_lookup.dart';
 
@@ -25,46 +25,37 @@ class _TrainScreenState extends State<TrainScreen> {
 	
 	@override
 	Widget build(BuildContext context) {
-		final trainDetailsBloc = Provider.of<TrainDetailsBloc>(context);
-		
 		return Scaffold(
 			appBar: AppBar( title: Text('Flutter Train'), ),
-			body: StreamBuilder<Train>(
-				initialData: Train.initialData(),
-				builder: (context, snapshot) {
-					return ListView(
-						padding: EdgeInsets.zero,
-						children: [
-							Route(stationLookup: stationLookup, trainDetails: snapshot.data.details, trainDetailsBloc: trainDetailsBloc),
-							SizedBox(height: 15.0),
-							BoxDecorationDate(),
-							SizedBox(height: 15.0),
-							BoxDecorationPassenger(),
-						]
-					);
-				}
+			body: ListView(
+				padding: EdgeInsets.zero,
+				children: [
+					Route(stationLookup: stationLookup),
+					SizedBox(height: 15.0),
+					BoxDecorationDate(),
+					SizedBox(height: 15.0),
+					BoxDecorationPassenger(),
+				],
 			),
 		);
 	}
 }
 
 class Route extends StatefulWidget {
-	Route({ this.stationLookup, this.trainDetails, this.trainDetailsBloc });
+	Route({ this.stationLookup });
 	
 	final StationLookup stationLookup;
-	final TrainDetails trainDetails;
-	final TrainDetailsBloc trainDetailsBloc;
 	
 	@override
-	_RouteState createState() => _RouteState(stationLookup: stationLookup, trainDetails: trainDetails, trainDetailsBloc: trainDetailsBloc);
+	_RouteState createState() => _RouteState(stationLookup: stationLookup);
 }
 
 class _RouteState extends State<Route> {
-	_RouteState({ this.stationLookup, this.trainDetails, this.trainDetailsBloc });
+	_RouteState({ this.stationLookup });
 	
 	final StationLookup stationLookup;
-	final TrainDetails trainDetails;
-	final TrainDetailsBloc trainDetailsBloc;
+	Station departure;
+	Station arrival;
 	
 	Future<Station> _showSearch(BuildContext context) async {
 		return await showSearch<Station>(
@@ -73,16 +64,16 @@ class _RouteState extends State<Route> {
 		);
 	}
 	
-	void selectDepart(BuildContext context) async {
-		final departure = await _showSearch(context);
+	void _selectDepart(BuildContext context) async {
+		var station = await _showSearch(context);
+		setState(() => departure = station);
 		print(departure);
-		// trainDetailsBloc.updateWith(departure: departure);
 	}
 	
-	void selectArrival(BuildContext context) async {
-		final arrival = await _showSearch(context);
+	void _selectArrival(BuildContext context) async {
+		var station = await _showSearch(context);
+		setState(() => arrival = station);
 		print(arrival);
-		// trainDetailsBloc.updateWith(arrival: arrival);
 	}
 	
 	@override
@@ -95,9 +86,9 @@ class _RouteState extends State<Route> {
 				mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 				// crossAxisAlignment: CrossAxisAlignment.center,
 				children: [
-					StationWidget(code: 'GMR', name: 'Gambir Jakarta', onPressed: () => selectDepart(context), station: trainDetails.departure, trainDetailsBloc: trainDetailsBloc),
+					StationWidget(code: 'GMR', name: 'Gambir Jakarta', onPressed: () => _selectDepart(context), station: departure),
 					Icon(Icons.train, color: Colors.white, size: 35.0),
-					StationWidget(code: 'BD', name: 'Bandung', onPressed: () => selectArrival(context), station: trainDetails.arrival, trainDetailsBloc: trainDetailsBloc),
+					StationWidget(code: 'BD', name: 'Bandung', onPressed: () => _selectArrival(context), station: arrival),
 				],
 			),
 		);
@@ -105,13 +96,12 @@ class _RouteState extends State<Route> {
 }
 
 class StationWidget extends StatelessWidget {
-	StationWidget({ this.code, this.name, this.onPressed, this.station, this.trainDetailsBloc });
+	StationWidget({ this.code, this.name, this.onPressed, this.station });
 	
 	final String code;
 	final String name; 
 	final VoidCallback onPressed;
 	final Station station;
-	final TrainDetailsBloc trainDetailsBloc;
 	
 	@override
 	Widget build(BuildContext context) {
@@ -188,31 +178,81 @@ class _BoxDecorationPassengerState extends State<BoxDecorationPassenger> {
 	
 	@override
 	Widget build(BuildContext context) {
-		return InkWell(
-			onTap: () { print('passenger'); },
-			child: Container(
-				padding: EdgeInsets.only(left: 20.0, right: 20.0),
-				child: Column(
-					children: [
-						Row(children: [Text('Penumpang', style: TextStyle(fontSize: 12.0, color: Colors.grey[400]))]),
-						SizedBox(height: 2.0),
-						Container(
-							alignment: Alignment.center,
-							constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
-							decoration: BoxDecoration(
-								border: Border.all(color: Colors.grey[400], width: 1.0),
-								borderRadius: BorderRadius.circular(10.0),
-							),
-							child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [passenger('adult', adult), SizedBox(width: 1.0), passenger('infant', infant)]),
+		return Container(
+			padding: EdgeInsets.only(left: 20.0, right: 20.0),
+			child: Column(
+				children: [
+					Row(children: [Text('Penumpang', style: TextStyle(fontSize: 12.0, color: Colors.grey[400]))]),
+					SizedBox(height: 2.0),
+					Container(
+						alignment: Alignment.center,
+						constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
+						decoration: BoxDecoration(
+							border: Border.all(color: Colors.grey[400], width: 1.0),
+							borderRadius: BorderRadius.circular(10.0),
 						),
-					],
-				),
+						child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [passenger('adult', adult), SizedBox(width: 1.0), passenger('infant', infant)]),
+					),
+				],
 			),
 		);
 	}
 	
 	Widget passenger(String type, int count) {
-		return Column(children: [Text('${count}', style: TextStyle(fontSize: 18.0)), Text(type, style: TextStyle(fontSize: 12.0, color: Colors.grey[400]))]);
+		return InkWell(
+			onTap: () {
+				Scaffold.of(context).showSnackBar(SnackBar(
+					content: popupPassenger(type),
+					duration: Duration(seconds: 30),
+					action: SnackBarAction(
+						label: 'tutup',
+						onPressed: () {},
+					),
+				));
+			},
+			child: Column(children: [Text('${count}', style: TextStyle(fontSize: 18.0)), Text(type, style: TextStyle(fontSize: 12.0, color: Colors.grey[400]))]),
+		);
+	}
+	
+	Widget popupPassenger(String type) {
+		return Row(
+			mainAxisAlignment: MainAxisAlignment.spaceBetween,
+			children: [
+				Text('${type}'),
+				SizedBox(width: 1.0),
+				Row(
+					children: [
+						Container(
+							decoration: BoxDecoration(
+								color: Colors.purple,
+								borderRadius: BorderRadius.circular(12.0),
+							),
+							child: IconButton(
+								icon: new Icon(Icons.add),
+								onPressed: () {
+									if (type == 'adult') setState(() { adult < 4 ? adult++ : Container(); });
+									if (type == 'infant') setState(() { infant < 4 ? infant++ : Container(); });
+								}
+							),
+						),
+						SizedBox(width: 5.0),
+						Container(
+							decoration: BoxDecoration(
+								color: Colors.purple,
+								borderRadius: BorderRadius.circular(12.0),
+							),
+							child: IconButton(
+								icon: new Icon(Icons.remove),
+								onPressed: () {
+									if (type == 'adult') setState(() { adult > 0 ? adult-- : Container(); });
+									if (type == 'infant') setState(() { infant > 0 ? infant-- : Container(); });
+								}
+							),
+						),
+					],
+				),
+			],
+		);
 	}
 }
 
