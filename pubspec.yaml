@@ -19,6 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: any
   intl: ^0.15.8
   rxdart: 0.18.1
   provider: 1.4.0

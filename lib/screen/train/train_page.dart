@@ -40,17 +40,33 @@ class _TrainPageState extends State<TrainPage> {
 						children: [
 							Route(stationLookup: stationLookup, searchBloc: searchBloc),
 							SizedBox(height: 15.0),
-							BoxDecorationDate(),
+							BoxDecorationDate(searchBloc: searchBloc),
 							SizedBox(height: 15.0),
-							BoxDecorationPassenger(),
-							RaisedButton(
-								child: Text("SEARCH", style: TextStyle(color: Colors.white)),
-								color: Colors.brown,
-								onPressed: () => print(snapshot.data.from_code),
-							),
+							BoxDecorationPassenger(searchBloc: searchBloc),
+							SizedBox(height: 30.0),
+							BoxDecorationButton(snapshot.data),
 						],
 					);
 				},
+			),
+		);
+	}
+	
+	Widget BoxDecorationButton(Search search) {
+		return InkWell(
+			onTap: () { print('${search.departure.station_code} ${search.arrival.station_code} ${search.date} ${search.adult} ${search.infant}'); },
+			child: Container(
+				padding: EdgeInsets.only(left: 20.0, right: 20.0),
+				child: Container(
+					alignment: Alignment.center,
+					constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
+					decoration: BoxDecoration(
+						color: Colors.blue[500],
+						border: Border.all(color: Colors.grey[400], width: 1.0),
+						borderRadius: BorderRadius.circular(10.0),
+					),
+					child: Text('SEARCH', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.white)),
+				),
 			),
 		);
 	}
@@ -87,7 +103,7 @@ class _RouteState extends State<Route> {
 		setState(() => departure = station);
 		
 		print(departure);
-		searchBloc.updateWith(from_code: station.station_code);
+		searchBloc.updateWith(departure: station);
 	}
 	
 	void _selectArrival(BuildContext context) async {
@@ -95,7 +111,7 @@ class _RouteState extends State<Route> {
 		setState(() => arrival = station);
 		
 		print(arrival);
-		searchBloc.updateWith(from_code: station.station_code);
+		searchBloc.updateWith(arrival: station);
 	}
 	
 	@override
@@ -108,9 +124,9 @@ class _RouteState extends State<Route> {
 				mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 				// crossAxisAlignment: CrossAxisAlignment.center,
 				children: [
-					StationWidget(code: 'GMR', name: 'Gambir Jakarta', onPressed: () => _selectDepart(context), station: departure),
+					StationWidget(title: 'KEBERANGKATAN', station: departure, onPressed: () => _selectDepart(context)),
 					Icon(Icons.train, color: Colors.white, size: 35.0),
-					StationWidget(code: 'BD', name: 'Bandung', onPressed: () => _selectArrival(context), station: arrival),
+					StationWidget(title: 'TIBA', station: arrival, onPressed: () => _selectArrival(context)),
 				],
 			),
 		);
@@ -118,12 +134,11 @@ class _RouteState extends State<Route> {
 }
 
 class StationWidget extends StatelessWidget {
-	StationWidget({ this.code, this.name, this.onPressed, this.station });
+	StationWidget({ this.title, this.station, this.onPressed });
 	
-	final String code;
-	final String name; 
-	final VoidCallback onPressed;
+	final String title;
 	final Station station;
+	final VoidCallback onPressed;
 	
 	@override
 	Widget build(BuildContext context) {
@@ -131,8 +146,8 @@ class StationWidget extends StatelessWidget {
 			onTap: onPressed,
 			child: Column(
 				children: [
-					Text(station != null ? station.station_code : code, style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.white)),
-					Text(station != null ? station.station_name : name, style: TextStyle(fontSize: 10.0, color: Colors.white))
+					Text(station != null ? station.station_code : '---', style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.white)),
+					Text(station != null ? station.station_name : title, style: TextStyle(fontSize: 10.0, color: Colors.white))
 				]
 			),
 		);
@@ -141,12 +156,20 @@ class StationWidget extends StatelessWidget {
 
 
 class BoxDecorationDate extends StatefulWidget {
+	BoxDecorationDate({ this.searchBloc });
+	
+	final SearchBloc searchBloc;
+	
 	@override
-	_BoxDecorationDateState createState() => _BoxDecorationDateState();
+	_BoxDecorationDateState createState() => _BoxDecorationDateState(searchBloc: searchBloc);
 }
 
 class _BoxDecorationDateState extends State<BoxDecorationDate> {
-	String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
+	_BoxDecorationDateState({ this.searchBloc });
+	
+	final SearchBloc searchBloc;
+	String date = "yyyy-mm-dd";
+	// String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
 	
 	Future selectDate() async {
 		DateTime picked = await showDatePicker(
@@ -159,6 +182,7 @@ class _BoxDecorationDateState extends State<BoxDecorationDate> {
 			setState(() {
 				date = DateFormat('yyyy-MM-dd').format(picked);
 				print('Selected date: ' + date);
+				searchBloc.updateWith(date: date);
 			});
 		}
 	}
@@ -190,12 +214,19 @@ class _BoxDecorationDateState extends State<BoxDecorationDate> {
 }
 
 class BoxDecorationPassenger extends StatefulWidget {
+	BoxDecorationPassenger({ this.searchBloc });
+	
+	final SearchBloc searchBloc;
+	
 	@override
-	_BoxDecorationPassengerState createState() => _BoxDecorationPassengerState();
+	_BoxDecorationPassengerState createState() => _BoxDecorationPassengerState(searchBloc: searchBloc);
 }
 
 class _BoxDecorationPassengerState extends State<BoxDecorationPassenger> {
-	int adult = 1;
+	_BoxDecorationPassengerState({ this.searchBloc });
+	
+	final SearchBloc searchBloc;
+	int adult = 0;
 	int infant = 0;
 	
 	@override
@@ -252,8 +283,8 @@ class _BoxDecorationPassengerState extends State<BoxDecorationPassenger> {
 							child: IconButton(
 								icon: new Icon(Icons.add),
 								onPressed: () {
-									if (type == 'adult') setState(() { adult < 4 ? adult++ : Container(); });
-									if (type == 'infant') setState(() { infant < 4 ? infant++ : Container(); });
+									if (type == 'adult') setState(() { if (adult < 4) { adult++; searchBloc.updateWith(adult: adult); } else { Container(); } });
+									if (type == 'infant') setState(() { if (infant < 4) { infant++; searchBloc.updateWith(infant: infant); } else { Container(); } });
 								}
 							),
 						),
@@ -266,8 +297,8 @@ class _BoxDecorationPassengerState extends State<BoxDecorationPassenger> {
 							child: IconButton(
 								icon: new Icon(Icons.remove),
 								onPressed: () {
-									if (type == 'adult') setState(() { adult > 0 ? adult-- : Container(); });
-									if (type == 'infant') setState(() { infant > 0 ? infant-- : Container(); });
+									if (type == 'adult') setState(() { if (adult > 0) { adult--; searchBloc.updateWith(adult: adult); } else { Container(); } });
+									if (type == 'infant') setState(() { if (infant > 0) { infant--; searchBloc.updateWith(infant: infant); } else { Container(); } });
 								}
 							),
 						),

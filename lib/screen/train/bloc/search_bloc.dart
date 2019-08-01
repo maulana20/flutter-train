@@ -4,13 +4,16 @@ import 'package:rxdart/rxdart.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
+import '../../../model/station.dart';
+
 class SearchBloc {
-	final StreamController _searchSubject = StreamController<Search>();
+	final BehaviorSubject _searchSubject = BehaviorSubject<Search>(seedValue: Search());
 	
-	Stream<Search> get searchStream => _searchSubject.stream;
+	Stream<Search> get searchStream => _searchSubject.controller.stream;
 	
-	void updateWith({ String from_code }) {
-		_searchSubject.add(Search(from_code: from_code));
+	void updateWith({ Station departure, Station arrival, String date, int adult, int infant }) {
+		Search value = _searchSubject.value.copyWith(departure: departure, arrival: arrival, date: date, adult: adult, infant: infant);
+		_searchSubject.add(value);
 	}
 	
 	void dispose() {
@@ -19,12 +22,20 @@ class SearchBloc {
 }
 
 class Search {
-	final String from_code;
+	final Station departure;
+	final Station arrival;
+	final String date;
+	final int adult;
+	final int infant;
 	
-	Search({ this.from_code });
-	Search copyWith({ String from_code }) {
+	Search({ this.departure, this.arrival, this.date, this.adult, this.infant });
+	Search copyWith({ Station departure, Station arrival, String date, int adult, int infant }) {
 		return Search(
-			from_code: from_code ?? this.from_code,
+			departure: departure ?? this.departure,
+			arrival: arrival ?? this.arrival,
+			date: date ?? this.date,
+			adult: adult ?? this.adult,
+			infant: infant ?? this.infant,
 		);
 	}
 }
