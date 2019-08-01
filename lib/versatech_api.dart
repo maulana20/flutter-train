@@ -31,7 +31,7 @@ void main() async {
 	}
 	
 	Future login() async {
-		final response = await session.post('https://atris.versatiket.co.id/api/admin', body: {'user': 'user', 'password': 'password'});
+		final response = await session.post('https://atris.versatiket.co.id/api/admin', body: {'user': 'maulanasaputra11091082@gmail.com', 'password': 'Versa321'});
 		
 		return response;
 	}
@@ -76,7 +76,9 @@ void main() async {
 	
 	await search();
 	for (final data in _schedules) {
-		print(data.ka_name);
+		for (final detail in data.detail) {
+			print('${detail.adult_fare}');
+		}
 	}
 	
 	await logout();

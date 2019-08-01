@@ -9,7 +9,9 @@ import 'package:provider/provider.dart';
 import 'bloc/search_bloc.dart';
 
 import '../../model/station.dart';
+import '../../model/schedule.dart';
 import '../../api/station_lookup.dart';
+import '../../api/versatiket_api.dart';
 
 class TrainPage extends StatefulWidget {
 	TrainPage({ this.stationLookup });
@@ -24,6 +26,66 @@ class _TrainPageState extends State<TrainPage> {
 	_TrainPageState({ this.stationLookup });
 	
 	final StationLookup stationLookup;
+	
+	VersatiketApi _versaApi;
+	List<Schedule> schedules;
+	
+	bool _isLoading = false;
+	
+	@override
+	void initState() {
+		super.initState();
+		_versaApi = VersatiketApi();
+	}
+	
+	Future<void> _alert(BuildContext context, String info) {
+		return showDialog<void>(
+			context: context,
+			builder: (BuildContext context) {
+				return AlertDialog(
+					title: Text('Warning !'),
+					content: Text(info),
+					actions: <Widget>[
+						FlatButton(
+							child: Text('Ok'),
+							onPressed: () {
+							  Navigator.of(context).pop();
+							},
+						),
+					],
+				);
+			},
+		);
+	}
+	
+	Future _process(Search search) async {
+		if (search.departure == null) {
+			_alert(context, 'tidak ada pilih untuk keberangkatan');
+		} else if (search.arrival == null) {
+			_alert(context, 'tidak ada pilih untuk tiba');
+		} else if (search.date == null) {
+			_alert(context, 'tanggal harus di isi');
+		} else if (search.adult == null) {
+			_alert(context, 'penumpang dewasa tidak boleh kosong');
+		} else {
+			setState(() { _isLoading = true; } );
+			await _versaApi.start();
+			
+			var res = await _versaApi.search(search);
+			
+			if (res['status'] == 'timeout') { 
+				_alert(context, res['message']);
+			} else if (res['status'] == 'failed') {
+				_alert(context, res['content']['reason']);
+			} else {
+				schedules = res['content']['list'].map<Schedule>((json) => Schedule.fromJson(json)).toList();
+				for (final data in schedules) {
+					print(data.ka_name);
+				}
+			}
+			setState(() { _isLoading = false; } );
+		}
+	}
 	
 	@override
 	Widget build(BuildContext context) {
@@ -54,7 +116,7 @@ class _TrainPageState extends State<TrainPage> {
 	
 	Widget BoxDecorationButton(Search search) {
 		return InkWell(
-			onTap: () { print('${search.departure.station_code} ${search.arrival.station_code} ${search.date} ${search.adult} ${search.infant}'); },
+			onTap: () { _process(search); },
 			child: Container(
 				padding: EdgeInsets.only(left: 20.0, right: 20.0),
 				child: Container(
@@ -65,7 +127,7 @@ class _TrainPageState extends State<TrainPage> {
 						border: Border.all(color: Colors.grey[400], width: 1.0),
 						borderRadius: BorderRadius.circular(10.0),
 					),
-					child: Text('SEARCH', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.white)),
+					child: _isLoading ? SizedBox(child: CircularProgressIndicator( valueColor: AlwaysStoppedAnimation<Color>(Colors.white)), height: 10.0, width: 10.0 ) : Text('SEARCH', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.white)),
 				),
 			),
 		);
@@ -168,10 +230,10 @@ class _BoxDecorationDateState extends State<BoxDecorationDate> {
 	_BoxDecorationDateState({ this.searchBloc });
 	
 	final SearchBloc searchBloc;
-	String date = "yyyy-mm-dd";
+	String date = "dd-mm-yyyy";
 	// String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
 	
-	Future selectDate() async {
+	Future _selectDate() async {
 		DateTime picked = await showDatePicker(
 			context: context,
 			initialDate: new DateTime.now(),
@@ -180,7 +242,7 @@ class _BoxDecorationDateState extends State<BoxDecorationDate> {
 		);
 		if(picked != null) {
 			setState(() {
-				date = DateFormat('yyyy-MM-dd').format(picked);
+				date = DateFormat('dd-MM-yyyy').format(picked);
 				print('Selected date: ' + date);
 				searchBloc.updateWith(date: date);
 			});
@@ -190,7 +252,7 @@ class _BoxDecorationDateState extends State<BoxDecorationDate> {
 	@override
 	Widget build(BuildContext context) {
 		return InkWell(
-			onTap: () { selectDate(); },
+			onTap: () { _selectDate(); },
 			child: Container(
 				padding: EdgeInsets.only(left: 20.0, right: 20.0),
 				child: Column(
