@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
@@ -51,7 +53,7 @@ class TrainSchedulePage extends StatelessWidget {
 					itemCount: schedules.length,
 					itemBuilder: (context, index) {
 						for (final detail in schedules[index].detail) {
-							return ScheduleDetailTile(schedule: schedules[index], detail: detail);
+							return ScheduleDetailTile(search: search, schedule: schedules[index], detail: detail);
 						}
 					},
 				),
@@ -61,15 +63,24 @@ class TrainSchedulePage extends StatelessWidget {
 }
 
 class ScheduleDetailTile extends StatelessWidget {
-	ScheduleDetailTile({ this.schedule, this.detail });
+	ScheduleDetailTile({ this.search, this.schedule, this.detail });
 	
+	final Search search;
 	final Schedule schedule;
 	final ScheduleDetail detail;
 	
 	@override
 	Widget build(BuildContext context) {
-		double total = double.parse(detail.adult_fare) + double.parse(detail.infant_fare);
-		MoneyFormatterOutput total_amount = FlutterMoneyFormatter(amount: total).output;
+		int adult_total = search.adult != null ? int.parse('${detail.adult_fare}') * search.adult : 0;
+		int infant_total = search.infant != null ? int.parse('${detail.infant_fare}') * search.infant : 0;
+		int total = adult_total + infant_total;
+		MoneyFormatterOutput total_amount = FlutterMoneyFormatter(amount: double.parse('${total}')).output;
+		
+		var color_seat;
+		if (detail.seat == '0') { color_seat = Colors.grey; } else if (detail.seat == 'Available') { color_seat = Colors.green; } else { color_seat = Colors.black; }
+		
+		var color_class;
+		if (detail.train_class == 'ECONOMY-C') { color_class = Colors.blue; } else if (detail.train_class == 'BUSINESS-B') { color_class = Colors.green; } else { color_class = Colors.red; }
 		
 		return Card(
 			child: Padding(
@@ -87,7 +98,8 @@ class ScheduleDetailTile extends StatelessWidget {
 									SizedBox(height: 10.0),
 								]
 							),
-							Column( children: [Text(total_amount.withoutFractionDigits, style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), Text(detail.train_class, style: TextStyle(fontSize: 10.0))], ),
+							Column( children: [Text('seat', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), Text(detail.seat, style: TextStyle(fontSize: 10.0, color: color_seat))], ),
+							Column( children: [Text(total_amount.withoutFractionDigits, style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), Text(detail.train_class, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: color_class))], ),
 						],
 					),
 				),
@@ -96,7 +108,7 @@ class ScheduleDetailTile extends StatelessWidget {
 	}
 	
 	Row Train(String name, String code) {
-		return Row( children: [ Text(name, style: TextStyle(fontSize: 10.0)), SizedBox(width: 5.0), Icon(Icons.train, size: 12.0), SizedBox(width: 5.0), Text(code, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)), ], );
+		return Row( children: [ Icon(Icons.train, size: 12.0), SizedBox(width: 5.0), Text(code, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)), SizedBox(width: 5.0), Text(name, style: TextStyle(fontSize: 8.0)) ], );
 	}
 	
 	Row Schedulex(String route, String time) {

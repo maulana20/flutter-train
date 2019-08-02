@@ -8,9 +8,9 @@ import '../model/schedule.dart';
 import '../screen/train/bloc/search_bloc.dart';
 
 class VersatiketApi {
-	final String url = 'url';
-	final String username = 'user';
-	final String password = 'pass';
+	final String url = 'https://atris.versatiket.co.id';
+	final String username = 'maulanasaputra11091082@gmail.com';
+	final String password = 'Versa321';
 	
 	Session session = new Session();
 	
