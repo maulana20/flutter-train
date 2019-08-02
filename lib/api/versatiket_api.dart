@@ -39,6 +39,9 @@ class VersatiketApi {
 	}
 	
 	Future search(Search search) async {
-		return await session.post(url + '/api/bookkai/kaih2h', body: {'from_code': search.departure.station_code, 'to_code': search.arrival.station_code, 'from_date': search.date, 'to_date': search.date, 'trip_type': 'oneway', 'adult': '${search.adult}', 'child': '0', 'infant': '${search.infant}' });
+		var params = {'from_code': search.departure.station_code, 'to_code': search.arrival.station_code, 'from_date': search.date, 'to_date': search.date, 'trip_type': 'oneway', 'adult': '${search.adult}', 'child': '0', 'infant': search.infant == null ? '0' : '${search.infant}' };
+		print('${params}');
+		
+		return await session.post(url + '/api/bookkai/kaih2h', body: params);
 	}
 }

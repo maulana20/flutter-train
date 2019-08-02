@@ -6,6 +6,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'train_schedule_page.dart';
 import 'bloc/search_bloc.dart';
 
 import '../../model/station.dart';
@@ -78,9 +79,11 @@ class _TrainPageState extends State<TrainPage> {
 			} else if (res['status'] == 'failed') {
 				_alert(context, res['content']['reason']);
 			} else {
-				schedules = res['content']['list'].map<Schedule>((json) => Schedule.fromJson(json)).toList();
-				for (final data in schedules) {
-					print(data.ka_name);
+				if (res['content']['list'] == null) {
+					_alert(context, 'data kosong !');
+				} else {
+					schedules = res['content']['list'].map<Schedule>((json) => Schedule.fromJson(json)).toList();
+					Navigator.push(context, MaterialPageRoute(builder: (context) => TrainSchedulePage(search: search, schedules: schedules)));
 				}
 			}
 			setState(() { _isLoading = false; } );
@@ -116,7 +119,7 @@ class _TrainPageState extends State<TrainPage> {
 	
 	Widget BoxDecorationButton(Search search) {
 		return InkWell(
-			onTap: () { _process(search); },
+			onTap: () { _isLoading ? null : _process(search); },
 			child: Container(
 				padding: EdgeInsets.only(left: 20.0, right: 20.0),
 				child: Container(
