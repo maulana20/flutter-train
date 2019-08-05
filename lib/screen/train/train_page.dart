@@ -85,6 +85,8 @@ class _TrainPageState extends State<TrainPage> {
 					schedules = res['content']['list'].map<Schedule>((json) => Schedule.fromJson(json)).toList();
 					Navigator.push(context, MaterialPageRoute(builder: (context) => TrainSchedulePage(search: search, schedules: schedules)));
 				}
+				
+				await _versaApi.logout();
 			}
 			setState(() { _isLoading = false; } );
 		}

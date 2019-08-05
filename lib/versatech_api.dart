@@ -8,6 +8,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'model/isonlogin.dart';
 import 'model/station.dart';
 import 'model/schedule.dart';
+import 'model/passenger.dart';
 
 import 'api/session.dart';
 
@@ -18,6 +19,7 @@ void main() async {
 	
 	List<Station> _stations = new List();
 	List<Schedule> _schedules = new List();
+	List<Passenger> _passengers = new List();
 	
 	Session session = new Session();
 	
@@ -63,10 +65,20 @@ void main() async {
 		_schedules.addAll(schedule);
 	}
 	
+	Future<Passenger> passengerx(int adult, int infant) {
+		_passengers.clear();
+		for (var i = 0; i < adult; i++) {
+			_passengers.add(Passenger(type: "Adult", title: "Mr"));
+		}
+		for (var i = 0; i < infant; i++) {
+			_passengers.add(Passenger(type: "Infant", title: "Mstr"));
+		}
+	}
+	
 	/* await station();
 	for (final data in _stations) {
 		print(data.station_code);
-	} */
+	} 
 	
 	var login_data = await login();
 	if (login_data['status'] == 'inuse') await ajaxresetlogin();
@@ -81,5 +93,10 @@ void main() async {
 		}
 	}
 	
-	await logout();
+	await logout(); */
+	
+	await passengerx(1, 1);
+	for (final data in _passengers) {
+		print(data.title);
+	}
 }

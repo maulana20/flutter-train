@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
+import 'train_passenger_page.dart';
+
 import 'bloc/search_bloc.dart';
+
 import '../../model/schedule.dart';
 import '../../model/schedule_detail.dart';
 
@@ -83,24 +86,27 @@ class ScheduleDetailTile extends StatelessWidget {
 		if (detail.train_class == 'ECONOMY-C') { color_class = Colors.blue; } else if (detail.train_class == 'BUSINESS-B') { color_class = Colors.green; } else { color_class = Colors.red; }
 		
 		return Card(
-			child: Padding(
-				padding: EdgeInsets.all(8.0),
-				child: ListTile(
-					title: Row(
-						mainAxisAlignment: MainAxisAlignment.spaceBetween,
-						children: [
-							Column(
-								mainAxisSize: MainAxisSize.min,
-								children: [
-									Train(schedule.ka_name, schedule.journey),
-									SizedBox(height: 4.0),
-									Schedulex(schedule.route, schedule.str_time),
-									SizedBox(height: 10.0),
-								]
-							),
-							Column( children: [Text('seat', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), Text(detail.seat, style: TextStyle(fontSize: 10.0, color: color_seat))], ),
-							Column( children: [Text(total_amount.withoutFractionDigits, style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), Text(detail.train_class, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: color_class))], ),
-						],
+			child: GestureDetector(
+				onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrainPassengerPage(search: search, schedule: schedule, detail: detail))),
+				child: Padding(
+					padding: EdgeInsets.all(8.0),
+					child: ListTile(
+						title: Row(
+							mainAxisAlignment: MainAxisAlignment.spaceBetween,
+							children: [
+								Column(
+									mainAxisSize: MainAxisSize.min,
+									children: [
+										Train(schedule.ka_name, schedule.journey),
+										SizedBox(height: 4.0),
+										Schedulex(schedule.route, schedule.str_time),
+										SizedBox(height: 10.0),
+									]
+								),
+								Column( children: [Text('seat', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), Text(detail.seat, style: TextStyle(fontSize: 10.0, color: color_seat))], ),
+								Column( children: [Text(total_amount.withoutFractionDigits, style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), Text(detail.train_class, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: color_class))], ),
+							],
+						),
 					),
 				),
 			),
@@ -108,7 +114,7 @@ class ScheduleDetailTile extends StatelessWidget {
 	}
 	
 	Row Train(String name, String code) {
-		return Row( children: [ Icon(Icons.train, size: 12.0), SizedBox(width: 5.0), Text(code, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)), SizedBox(width: 5.0), Text(name, style: TextStyle(fontSize: 8.0)) ], );
+		return Row( children: [ Icon(Icons.train, size: 14.0), SizedBox(width: 5.0), Text(code, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)), SizedBox(width: 5.0), Text(name, style: TextStyle(fontSize: 8.0)) ], );
 	}
 	
 	Row Schedulex(String route, String time) {
