@@ -9,6 +9,8 @@ import 'bloc/search_bloc.dart';
 
 import '../../model/schedule.dart';
 import '../../model/schedule_detail.dart';
+import '../../model/itinerary.dart';
+import '../../model/passenger.dart';
 
 class TrainSchedulePage extends StatelessWidget {
 	TrainSchedulePage({ this.search, this.schedules });
@@ -72,12 +74,16 @@ class ScheduleDetailTile extends StatelessWidget {
 	final Schedule schedule;
 	final ScheduleDetail detail;
 	
+	List<Passenger> passengers = new List();
+	
 	@override
 	Widget build(BuildContext context) {
 		int adult_total = search.adult != null ? int.parse('${detail.adult_fare}') * search.adult : 0;
 		int infant_total = search.infant != null ? int.parse('${detail.infant_fare}') * search.infant : 0;
 		int total = adult_total + infant_total;
 		MoneyFormatterOutput total_amount = FlutterMoneyFormatter(amount: double.parse('${total}')).output;
+		
+		Itinerary itinerary = Itinerary(search: search, schedule: schedule, detail: detail);
 		
 		var color_seat;
 		if (detail.seat == '0') { color_seat = Colors.grey; } else if (detail.seat == 'Available') { color_seat = Colors.green; } else { color_seat = Colors.black; }
@@ -87,7 +93,7 @@ class ScheduleDetailTile extends StatelessWidget {
 		
 		return Card(
 			child: GestureDetector(
-				onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrainPassengerPage(search: search, schedule: schedule, detail: detail))),
+				onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrainPassengerPage(itinerary: itinerary, passengers: passengers))),
 				child: Padding(
 					padding: EdgeInsets.all(8.0),
 					child: ListTile(

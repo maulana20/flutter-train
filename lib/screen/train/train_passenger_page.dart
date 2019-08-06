@@ -2,6 +2,9 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 
+import 'train_passenger_form_page.dart';
+
+import '../../model/itinerary.dart';
 import '../../model/schedule.dart';
 import '../../model/schedule_detail.dart';
 import '../../model/passenger.dart';
@@ -9,11 +12,10 @@ import '../../model/passenger.dart';
 import 'bloc/search_bloc.dart';
 
 class TrainPassengerPage extends StatelessWidget {
-	TrainPassengerPage({ this.search, this.schedule, this.detail });
+	TrainPassengerPage({ this.itinerary, this.passengers });
 	
-	final Search search;
-	final Schedule schedule;
-	final ScheduleDetail detail;
+	final Itinerary itinerary;
+	List<Passenger> passengers;
 	
 	@override
 	Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class TrainPassengerPage extends StatelessWidget {
 					icon: Icon(Icons.arrow_back),
 					onPressed: () { Navigator.pop(context); },
 				),
-				title: Text('Form Penumpang', style: TextStyle(fontSize: 18.0)),
+				title: Text('Data Penumpang', style: TextStyle(fontSize: 18.0)),
 			),
 			body: ListView(
 				padding: EdgeInsets.zero,
@@ -31,9 +33,9 @@ class TrainPassengerPage extends StatelessWidget {
 					SizedBox(height: 10.0),
 					ChangeSearch(),
 					SizedBox(height: 10.0),
-					DetailRoute(search: search, schedule: schedule, detail: detail),
+					DetailRoute(itinerary: itinerary),
 					SizedBox(height: 10.0),
-					DetailPassenger(search: search),
+					DetailPassenger(itinerary: itinerary, passengers: passengers),
 				],
 			),
 		);
@@ -60,11 +62,9 @@ class ChangeSearch extends StatelessWidget {
 }
 
 class DetailRoute extends StatelessWidget {
-	DetailRoute({ this.search, this.schedule, this.detail });
+	DetailRoute({ this.itinerary });
 	
-	final Search search;
-	final Schedule schedule;
-	final ScheduleDetail detail;
+	final Itinerary itinerary;
 	
 	@override
 	Widget build(BuildContext context) {
@@ -86,9 +86,9 @@ class DetailRoute extends StatelessWidget {
 							children: [
 								Column(
 									children: [
-										Row(children:[ Text(search.departure.station_name, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), SizedBox(width: 5.0), Icon(Icons.arrow_forward, size: 12.0), SizedBox(width: 5.0), Text(search.arrival.station_name, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), ]),
+										Row(children:[ Text(itinerary.search.departure.station_name, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), SizedBox(width: 5.0), Icon(Icons.arrow_forward, size: 12.0), SizedBox(width: 5.0), Text(itinerary.search.arrival.station_name, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), ]),
 										SizedBox(height: 5.0),
-										Row(children:[ Route(schedule.route.split('-')[0], schedule.str_time.split(' ')[0]), SizedBox(width: 5.0), Text('-'), SizedBox(width: 5.0), Route(schedule.route.split('-')[1], schedule.str_time.split(' ')[1]), SizedBox(width: 5.0), Icon(Icons.grade, size: 8.0), SizedBox(width: 5.0), Text(search.date, style: TextStyle(fontSize: 12.0))]),
+										Row(children:[ Route(itinerary.schedule.route.split('-')[0], itinerary.schedule.str_time.split(' ')[0]), SizedBox(width: 5.0), Text('-'), SizedBox(width: 5.0), Route(itinerary.schedule.route.split('-')[1], itinerary.schedule.str_time.split(' ')[1]), SizedBox(width: 5.0), Icon(Icons.grade, size: 8.0), SizedBox(width: 5.0), Text(itinerary.search.date, style: TextStyle(fontSize: 12.0))]),
 									],
 								),
 								Row(children:[ Icon(Icons.arrow_downward, size: 16.0), ]),
@@ -106,19 +106,19 @@ class DetailRoute extends StatelessWidget {
 }
 
 class DetailPassenger extends StatefulWidget {
-	DetailPassenger({ this.search });
+	DetailPassenger({ this.itinerary, this.passengers });
 	
-	final Search search;
+	final Itinerary itinerary;
+	List<Passenger> passengers;
 	
-	_DetailPassengerState createState() => _DetailPassengerState(search: search);
+	_DetailPassengerState createState() => _DetailPassengerState(itinerary: itinerary, passengers: passengers);
 }
 
 class _DetailPassengerState extends State<DetailPassenger> {
-	_DetailPassengerState({ this.search });
+	_DetailPassengerState({ this.itinerary, this.passengers });
 	
-	final Search search;
-	
-	List<Passenger> passengers = new List();
+	final Itinerary itinerary;
+	List<Passenger> passengers;
 	
 	Future<Passenger> _passenger(int adult, int infant) {
 		passengers.clear();
@@ -128,7 +128,7 @@ class _DetailPassengerState extends State<DetailPassenger> {
 	
 	initState() {
 		super.initState();
-		_passenger(search.adult, search.infant);
+		if (passengers.length == 0) _passenger(itinerary.search.adult, itinerary.search.infant);
 	}
 	
 	@override
@@ -155,6 +155,13 @@ class _DetailPassengerState extends State<DetailPassenger> {
 		var type = passenger.type == 'Adult' ? 'dewasa' : 'bayi';
 		int i = index + 1;
 		
+		String info;
+		if (passenger.name != null) {
+			info = '${passenger.title} ${passenger.name} ${passenger.identity}';
+		} else {
+			info = 'penumpang ${type} ' + (passenger.type == 'Adult' ? 'ke ${i}' : '');
+		}
+		
 		return Container(
 			constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
 			padding: EdgeInsets.all(15.0),
@@ -163,12 +170,15 @@ class _DetailPassengerState extends State<DetailPassenger> {
 				borderRadius: BorderRadius.circular(5.0),
 				color: Colors.grey[200],
 			),
-			child:  Row(
-				mainAxisAlignment: MainAxisAlignment.spaceBetween,
-				children: [
-					Text('penumpang ${type} ' + (passenger.type == 'Adult' ? 'ke ${i}' : ''), style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
-					Icon(Icons.create, size: 14.0),
-				],
+			child: InkWell(
+				onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrainPassengerForm(itinerary: itinerary, passengers: passengers, index: index))),
+				child: Row(
+					mainAxisAlignment: MainAxisAlignment.spaceBetween,
+					children: [
+						Text(info, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
+						Icon(Icons.create, size: 14.0),
+					],
+				),
 			),
 		);
 	}

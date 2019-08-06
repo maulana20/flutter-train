@@ -95,8 +95,10 @@ void main() async {
 	
 	await logout(); */
 	
+	print(_passengers.length);
 	await passengerx(1, 1);
 	for (final data in _passengers) {
 		print(data.title);
 	}
+	print(_passengers.length);
 }
