@@ -122,8 +122,8 @@ class _DetailPassengerState extends State<DetailPassenger> {
 	
 	Future<Passenger> _passenger(int adult, int infant) {
 		passengers.clear();
-		if (adult != null) for (var i = 0; i < adult; i++) { passengers.add(Passenger(type: "Adult", title: "Mr")); }
-		if (infant != null) for (var i = 0; i < infant; i++) { passengers.add(Passenger(type: "Infant", title: "Mstr")); }
+		if (adult != null) for (var i = 0; i < adult; i++) { passengers.add(Passenger(type: "Adult", title: "Mr.")); }
+		if (infant != null) for (var i = 0; i < infant; i++) { passengers.add(Passenger(type: "Infant", title: "Mstr.")); }
 	}
 	
 	initState() {
@@ -155,18 +155,18 @@ class _DetailPassengerState extends State<DetailPassenger> {
 		var type = passenger.type == 'Adult' ? 'dewasa' : 'bayi';
 		int i = index + 1;
 		
-		String info;
+		var info;
 		if (passenger.name != null) {
-			info = '${passenger.title} ${passenger.name} ${passenger.identity}';
+			info = Text('${passenger.title} ${passenger.name}', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold));
 		} else {
-			info = 'penumpang ${type} ' + (passenger.type == 'Adult' ? 'ke ${i}' : '');
+			info = Text('penumpang ${type} ' + (passenger.type == 'Adult' ? 'ke ${i}' : ''), style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold));
 		}
 		
 		return Container(
 			constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
 			padding: EdgeInsets.all(15.0),
 			decoration: BoxDecoration(
-				border: Border.all(color: Colors.grey[200], width: 1.0),
+				border: Border.all(color: Colors.grey[200], width: 2.0),
 				borderRadius: BorderRadius.circular(5.0),
 				color: Colors.grey[200],
 			),
@@ -175,8 +175,8 @@ class _DetailPassengerState extends State<DetailPassenger> {
 				child: Row(
 					mainAxisAlignment: MainAxisAlignment.spaceBetween,
 					children: [
-						Text(info, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
-						Icon(Icons.create, size: 14.0),
+						info,
+						passenger.name != null ? Text('${passenger.identity}', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)) : Icon(Icons.create, size: 14.0),
 					],
 				),
 			),

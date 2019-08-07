@@ -14,52 +14,102 @@ class TrainPassengerForm extends StatelessWidget {
 	
 	@override
 	Widget build(BuildContext context) {
-		passengers[index] = Passenger(title: 'Mr', type: 'Adult', name: 'Maulana', identity: '012479687');
-		
 		return Scaffold(
 			appBar: AppBar(
 				title: Text('Form Penumpang', style: TextStyle(fontSize: 18.0)),
 			),
-			body: ListView(
-				padding: EdgeInsets.zero,
-				children: [
-					TitleOption(),
-					InkWell(
-						onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrainPassengerPage(itinerary: itinerary, passengers: passengers))),
-						child: Container(
-							padding: EdgeInsets.only(left: 20.0, right: 20.0),
-							child: Container(
-								alignment: Alignment.center,
-								constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
-								decoration: BoxDecoration(
-									color: Colors.blue[500],
-									border: Border.all(color: Colors.grey[400], width: 1.0),
-									borderRadius: BorderRadius.circular(10.0),
-								),
-								child: Text('SIMPAN', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.white)),
-							),
-						),
-					),
-				],
-			),
+			body: CustomForm(itinerary: itinerary, passengers: passengers, index: index),
 		);
 	}
 }
 
-class TitleOption extends StatefulWidget {
+class CustomForm extends StatefulWidget {
+	CustomForm({ this.itinerary, this.passengers, this.index });
+	
+	final Itinerary itinerary;
+	final List<Passenger> passengers;
+	final int index;
+	
 	@override
-	_TitleOptionState createState() => _TitleOptionState();
+	_CustomFormState createState() => _CustomFormState(itinerary: itinerary, passengers: passengers, index: index);
 }
 
-class _TitleOptionState extends State<TitleOption> {
-	String dropdownValue = 'Mr';
+class _CustomFormState extends State<CustomForm> {
+	_CustomFormState({ this.itinerary, this.passengers, this.index });
+	
+	final Itinerary itinerary;
+	final List<Passenger> passengers;
+	final int index;
+	
+	final formKey = GlobalKey<FormState>();
+	
+	final name = TextEditingController();
+	final identity = TextEditingController();
+	String title;
+	
+	initState() {
+		super.initState();
+		title = passengers[index].title;
+		name.text = passengers[index].name;
+		identity.text = passengers[index].identity;
+	}
 	
 	@override
 	Widget build(BuildContext context) {
+		return Form(
+			key: formKey,
+			child: Container(
+				padding: EdgeInsets.all(20.0),
+				alignment: Alignment(-1.0, -1.0),
+				child: Column(
+					mainAxisAlignment: MainAxisAlignment.start,
+					children: [
+						Row(
+							mainAxisAlignment: MainAxisAlignment.spaceBetween,
+							children: [
+								Column(
+									crossAxisAlignment: CrossAxisAlignment.start,
+									children: [
+										Text('Title', style: TextStyle(fontSize: 16.0, color: Colors.grey[600])),
+										passengers[index].type == 'Adult' ? TitleAdultOption() : TitleInfantOption()
+									]
+								),
+								Text(''),
+							]
+						),
+						TextFormField(
+							controller: name,
+							decoration: InputDecoration(labelText: "Nama lengkap"),
+							validator: (value) { if (value.isEmpty) return 'Nama lengkap tidak boleh kosong'; },
+						),
+						TextFormField(
+							controller: identity,
+							decoration: InputDecoration(labelText: "Nomor identitas"),
+							validator: (value) { if (value.isEmpty) return 'Nomor identitas tidak boleh kosong'; },
+						),
+						SizedBox(height: 20.0),
+						Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(''), RaisedButton(color: Colors.blue[500], onPressed: () { if (formKey.currentState.validate()) { passengers[index] = Passenger(title: title, type: passengers[index].type, name: name.text, identity: identity.text); Navigator.push(context, MaterialPageRoute(builder: (context) => TrainPassengerPage(itinerary: itinerary, passengers: passengers))); } }, child: Text('SIMPAN', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.white)),), ]),
+					],
+				),
+			),
+		);
+	}
+	
+	Widget TitleAdultOption() {
 		return DropdownButton<String>(
-			value: dropdownValue,
-			onChanged: (String newValue) { setState(() { dropdownValue = newValue; }); },
-			items: <String>['Mr', 'Mrs', 'Ms'].map<DropdownMenuItem<String>>((String value) {
+			value: title,
+			onChanged: (String _value) { setState(() { title = _value; }); },
+			items: <String>['Mr.', 'Mrs.', 'Ms.'].map<DropdownMenuItem<String>>((String value) {
+				return DropdownMenuItem<String>(value: value, child: Text(value));
+			}).toList(),
+		);
+	}
+	
+	Widget TitleInfantOption() {
+		return DropdownButton<String>(
+			value: title,
+			onChanged: (String _value) { setState(() { title = _value; }); },
+			items: <String>['Mstr.', 'Miss.'].map<DropdownMenuItem<String>>((String value) {
 				return DropdownMenuItem<String>(value: value, child: Text(value));
 			}).toList(),
 		);
