@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 
 import 'train_passenger_form_page.dart';
+import '../train_screen.dart';
 
 import '../../model/itinerary.dart';
 import '../../model/schedule.dart';
@@ -23,7 +24,7 @@ class TrainPassengerPage extends StatelessWidget {
 			appBar: AppBar(
 				leading: IconButton(
 					icon: Icon(Icons.arrow_back),
-					onPressed: () { Navigator.pop(context); },
+					onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => TrainScreen())); },
 				),
 				title: Text('Data Penumpang', style: TextStyle(fontSize: 18.0)),
 			),
@@ -44,17 +45,20 @@ class TrainPassengerPage extends StatelessWidget {
 
 class ChangeSearch extends StatelessWidget {
 	Widget build(BuildContext context) {
-		return Container(
-			padding: EdgeInsets.only(left: 20.0, right: 20.0),
+		return InkWell(
+			onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrainScreen())),
 			child: Container(
-				constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
-				padding: EdgeInsets.all(15.0),
-				decoration: BoxDecoration(
-					border: Border.all(color: Colors.lightBlue[300], width: 1.0),
-					borderRadius: BorderRadius.circular(5.0),
-				),
-				child: Center(
-					child: Text('UBAH PENCARIAN', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.lightBlue)),
+				padding: EdgeInsets.only(left: 20.0, right: 20.0),
+				child: Container(
+					constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
+					padding: EdgeInsets.all(15.0),
+					decoration: BoxDecoration(
+						border: Border.all(color: Colors.lightBlue[300], width: 1.0),
+						borderRadius: BorderRadius.circular(5.0),
+					),
+					child: Center(
+						child: Text('UBAH PENCARIAN', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.lightBlue)),
+					),
 				),
 			),
 		);
@@ -155,13 +159,6 @@ class _DetailPassengerState extends State<DetailPassenger> {
 		var type = passenger.type == 'Adult' ? 'dewasa' : 'bayi';
 		int i = index + 1;
 		
-		var info;
-		if (passenger.name != null) {
-			info = Text('${passenger.title} ${passenger.name}', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold));
-		} else {
-			info = Text('penumpang ${type} ' + (passenger.type == 'Adult' ? 'ke ${i}' : ''), style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold));
-		}
-		
 		return Container(
 			constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
 			padding: EdgeInsets.all(15.0),
@@ -175,8 +172,8 @@ class _DetailPassengerState extends State<DetailPassenger> {
 				child: Row(
 					mainAxisAlignment: MainAxisAlignment.spaceBetween,
 					children: [
-						info,
-						passenger.name != null ? Text('${passenger.identity}', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)) : Icon(Icons.create, size: 14.0),
+						passenger.name != null ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('${passenger.title} ${passenger.name}', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), SizedBox(height: 1.0), Text('${passenger.identity}', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)) ]) : Text('penumpang ${type} ' + (passenger.type == 'Adult' ? 'ke ${i}' : ''), style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
+						Icon(Icons.create, size: 14.0),
 					],
 				),
 			),
