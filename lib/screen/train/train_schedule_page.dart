@@ -12,6 +12,8 @@ import '../../model/schedule_detail.dart';
 import '../../model/itinerary.dart';
 import '../../model/passenger.dart';
 
+import '../../api/versatiket_api.dart';
+
 class TrainSchedulePage extends StatelessWidget {
 	TrainSchedulePage({ this.search, this.schedules });
 	
@@ -67,14 +69,73 @@ class TrainSchedulePage extends StatelessWidget {
 	}
 }
 
-class ScheduleDetailTile extends StatelessWidget {
+class ScheduleDetailTile extends StatefulWidget {
 	ScheduleDetailTile({ this.search, this.schedule, this.detail });
 	
 	final Search search;
 	final Schedule schedule;
 	final ScheduleDetail detail;
 	
-	List<Passenger> passengers = new List();
+	_ScheduleDetailTileState createState() => _ScheduleDetailTileState(search: search, schedule: schedule, detail: detail);
+}
+
+class _ScheduleDetailTileState extends State<ScheduleDetailTile> {
+	_ScheduleDetailTileState({ this.search, this.schedule, this.detail });
+	
+	final Search search;
+	final Schedule schedule;
+	final ScheduleDetail detail;
+	
+	VersatiketApi _versaApi;
+	
+	@override
+	void initState() {
+		super.initState();
+		_versaApi = VersatiketApi();
+	}
+	
+	Future<void> _alert(BuildContext context, String info) {
+		return showDialog<void>(
+			context: context,
+			builder: (BuildContext context) {
+				return AlertDialog(
+					title: Text('Warning !'),
+					content: Text(info),
+					actions: <Widget>[
+						FlatButton(
+							child: Text('Ok'),
+							onPressed: () {
+							  Navigator.of(context).pop();
+							},
+						),
+					],
+				);
+			},
+		);
+	}
+	
+	Future _process(Itinerary itinerary) async {
+		await _versaApi.isonlogin();
+		
+		await Future.delayed(const Duration(seconds : 5));
+		
+		var res = await _versaApi.fare(itinerary);
+		
+		if (res['status'] == 'timeout') { 
+			_alert(context, res['message']);
+		} else if (res['status'] == 'failed') {
+			if (res['content']['flag'] != null) {
+				_alert(context, res['content']['alert']);
+			} else {
+				_alert(context, res['content']['reason']);
+			}
+		} else {
+			List<Passenger> passengers = new List();
+			Navigator.push(context, MaterialPageRoute(builder: (context) => TrainPassengerPage(itinerary: itinerary, passengers: passengers)));
+		}
+		
+		// await _versaApi.logout();
+	}
 	
 	@override
 	Widget build(BuildContext context) {
@@ -93,7 +154,7 @@ class ScheduleDetailTile extends StatelessWidget {
 		
 		return Card(
 			child: GestureDetector(
-				onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrainPassengerPage(itinerary: itinerary, passengers: passengers))),
+				onTap: () => _process(itinerary),
 				child: Padding(
 					padding: EdgeInsets.all(8.0),
 					child: ListTile(

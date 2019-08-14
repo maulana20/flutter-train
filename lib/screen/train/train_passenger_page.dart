@@ -161,7 +161,7 @@ class _DetailPassengerState extends State<DetailPassenger> {
 		
 		return Container(
 			constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
-			padding: EdgeInsets.all(15.0),
+			padding: EdgeInsets.all(8.0),
 			decoration: BoxDecoration(
 				border: Border.all(color: Colors.grey[200], width: 2.0),
 				borderRadius: BorderRadius.circular(5.0),
@@ -172,7 +172,7 @@ class _DetailPassengerState extends State<DetailPassenger> {
 				child: Row(
 					mainAxisAlignment: MainAxisAlignment.spaceBetween,
 					children: [
-						passenger.name != null ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('${passenger.title} ${passenger.name}', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), SizedBox(height: 1.0), Text('${passenger.identity}', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)) ]) : Text('penumpang ${type} ' + (passenger.type == 'Adult' ? 'ke ${i}' : ''), style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
+						passenger.name != null ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('${passenger.title} ${passenger.name}', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), SizedBox(height: 1.0), passenger.type == 'Adult' ? Text('${passenger.identity}', style: TextStyle(fontSize: 11.0)) : SizedBox(height: 5.0) ]) : Text('penumpang ${type} ' + (passenger.type == 'Adult' ? 'ke ${i}' : ''), style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
 						Icon(Icons.create, size: 14.0),
 					],
 				),

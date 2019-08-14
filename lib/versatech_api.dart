@@ -4,11 +4,16 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
 
 import 'model/isonlogin.dart';
 import 'model/station.dart';
 import 'model/schedule.dart';
+import 'model/schedule_detail.dart';
 import 'model/passenger.dart';
+import 'model/itinerary.dart';
+
+import 'screen/train/bloc/search_bloc.dart';
 
 import 'api/session.dart';
 
@@ -20,6 +25,8 @@ void main() async {
 	List<Station> _stations = new List();
 	List<Schedule> _schedules = new List();
 	List<Passenger> _passengers = new List();
+	
+	Itinerary itinerary;
 	
 	Session session = new Session();
 	
@@ -75,6 +82,39 @@ void main() async {
 		}
 	}
 	
+	Future _itinerary() {
+		Search search = Search(departure: Station(station_code: 'GMR'), arrival: Station(station_code: 'BD'), date: '30-08-2019', adult: 1);
+		Schedule schedule = Schedule(journey: '20', ka_name: 'ARGO PARAHYANGAN', route: 'GMR-BD', str_time: '05:25 08:52');
+		ScheduleDetail detail = ScheduleDetail(train_name: '20-ARGO PARAHYANGAN-C', train_class: 'ECONOMY-C', type: 'Economy', seat: 'Available', disabled: false);
+		
+		itinerary = Itinerary(search: search, schedule: schedule, detail: detail);
+	}
+	
+	parseDate(String date) {
+		final result = DateTime.parse(date).millisecondsSinceEpoch.toString().substring(0, 10);
+		return result;
+	}
+	
+	Future fare(Itinerary itinerary) {
+		var date = '${itinerary.search.date.split('-')[2]}-${itinerary.search.date.split('-')[1]}-${itinerary.search.date.split('-')[0]}';
+		var info = ['1', ['Kaih2h', '7000', itinerary.schedule.journey, '${itinerary.search.departure.station_code}-${itinerary.search.arrival.station_code}', '1', parseDate('${date} ${itinerary.schedule.str_time.split(' ')[0]}'), parseDate('${date} ${itinerary.schedule.str_time.split(' ')[1]}')].join('|'), 'C', itinerary.detail.train_name, '0|0|0'];
+		
+		var params = { 'id': '7000', 'choice': itinerary.detail.train_name, 'date': parseDate('${date}'), 'from_code': itinerary.search.departure.station_code, 'to_code': itinerary.search.arrival.station_code, 'adult': '${itinerary.search.adult}', 'child': '0', 'infant': itinerary.search.infant == null ? '0' : '${itinerary.search.infant}', 'row': '7001', 'class_code': itinerary.detail.train_class, 'chkbox': '7000', 'seq': '1', 'defcurr': 'IDR', 'info': info.join('~'), 'code': itinerary.schedule.journey };
+		print('${params}');
+	}
+	
+	Future<String> _read() async {
+		final directory = await getApplicationDocumentsDirectory();
+		final file = File('${directory.path}/session.txt');
+		return await file.readAsString();
+	}
+	
+	Future _write(String text) async {
+		final directory = await getApplicationDocumentsDirectory();
+		final file = File('${directory.path}/session.txt');
+		await file.writeAsString(text);
+	}
+	
 	/* await station();
 	for (final data in _stations) {
 		print(data.station_code);
@@ -93,7 +133,7 @@ void main() async {
 		}
 	}
 	
-	await logout(); */
+	await logout();
 	
 	print(_passengers.length);
 	await passengerx(1, 1);
@@ -101,4 +141,12 @@ void main() async {
 		print(data.title);
 	}
 	print(_passengers.length);
+	
+	await _itinerary();
+	await fare(itinerary); */
+	
+	await _write('hahaha');
+	var data = await _read();
+	
+	print(data);
 }

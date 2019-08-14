@@ -72,6 +72,8 @@ class _TrainPageState extends State<TrainPage> {
 			setState(() { _isLoading = true; } );
 			await _versaApi.start();
 			
+			await new Future.delayed(const Duration(seconds : 5));
+			
 			var res = await _versaApi.search(search);
 			
 			if (res['status'] == 'timeout') { 
@@ -86,7 +88,7 @@ class _TrainPageState extends State<TrainPage> {
 					Navigator.push(context, MaterialPageRoute(builder: (context) => TrainSchedulePage(search: search, schedules: schedules)));
 				}
 				
-				await _versaApi.logout();
+				// await _versaApi.logout();
 			}
 			setState(() { _isLoading = false; } );
 		}

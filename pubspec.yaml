@@ -23,6 +23,7 @@ dependencies:
   intl: ^0.15.8
   rxdart: 0.18.1
   provider: 1.4.0
+  path_provider: 1.2.0
   flutter_money_formatter: ^0.8.2
 
   # The following adds the Cupertino Icons font to your application.
