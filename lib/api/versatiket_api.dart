@@ -49,9 +49,7 @@ class VersatiketApi {
 	Future fare(Itinerary itinerary) async {
 		var date = '${itinerary.search.date.split('-')[2]}-${itinerary.search.date.split('-')[1]}-${itinerary.search.date.split('-')[0]}';
 		var date_time = parseDate('${date}');
-		var depart_time = parseDate('${date} ${itinerary.schedule.str_time.split(' ')[0]}');
-		var arrive_time = parseDate('${date} ${itinerary.schedule.str_time.split(' ')[1]}');
-		var info = ['1', ['Kaih2h', '7000', itinerary.schedule.journey, '${itinerary.search.departure.station_code}-${itinerary.search.arrival.station_code}', '1', depart_time, arrive_time].join('|'), 'C', itinerary.detail.train_name, '0|0|0'].join('~');
+		var info = ['1', ['Kaih2h', '7000', itinerary.schedule.journey, '${itinerary.search.departure.station_code}-${itinerary.search.arrival.station_code}', '1', itinerary.schedule.time_depart, itinerary.schedule.time_arrive].join('|'), 'C', itinerary.detail.train_name, '0|0|0'].join('~');
 		
 		var params = { 'id': '7000', 'choice': '${itinerary.detail.train_name}', 'date': '${date_time}', 'from_code': '${itinerary.search.departure.station_code}', 'to_code': '${itinerary.search.arrival.station_code}', 'adult': '${itinerary.search.adult}', 'child': '0', 'infant': itinerary.search.infant == null ? '0' : '${itinerary.search.infant}', 'row': '7001', 'class_code': '${itinerary.detail.train_class}', 'chkbox': '7000', 'seq': '1', 'defcurr': 'IDR', 'info': '${info}', 'code': '${itinerary.schedule.journey}' };
 		print('${params}');

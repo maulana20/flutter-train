@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
 
 import 'model/isonlogin.dart';
 import 'model/station.dart';
@@ -40,7 +41,7 @@ void main() async {
 	}
 	
 	Future login() async {
-		final response = await session.post('https://atris.versatiket.co.id/api/admin', body: {'user': 'maulanasaputra11091082@gmail.com', 'password': 'Versa321'});
+		final response = await session.post('https://atris.versatiket.co.id/api/admin', body: {'user': 'user', 'password': 'password'});
 		
 		return response;
 	}
@@ -143,10 +144,18 @@ void main() async {
 	print(_passengers.length);
 	
 	await _itinerary();
-	await fare(itinerary); */
+	await fare(itinerary);
 	
 	await _write('hahaha');
 	var data = await _read();
 	
 	print(data);
+	
+	var date = DateFormat("yyyy-MM-dd").format(DateTime.fromMicrosecondsSinceEpoch(1566264087000 * 1000));
+	print(date); */
+	
+	var depart = DateTime.fromMicrosecondsSinceEpoch(1568172600 * 1000 * 1000);
+	var arrive = DateTime.fromMicrosecondsSinceEpoch(1568183940 * 1000 * 1000);
+	Duration diff = arrive.difference(depart);
+	print(diff);
 }

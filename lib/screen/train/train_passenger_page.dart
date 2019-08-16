@@ -2,8 +2,10 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 
-import 'train_passenger_form_page.dart';
 import '../train_screen.dart';
+
+import 'train_passenger_form_page.dart';
+import 'train_schedule_detail_page.dart';
 
 import '../../model/itinerary.dart';
 import '../../model/schedule.dart';
@@ -34,7 +36,7 @@ class TrainPassengerPage extends StatelessWidget {
 					SizedBox(height: 10.0),
 					ChangeSearch(),
 					SizedBox(height: 10.0),
-					DetailRoute(itinerary: itinerary),
+					DetailRoute(itinerary: itinerary, passengers: passengers),
 					SizedBox(height: 10.0),
 					DetailPassenger(itinerary: itinerary, passengers: passengers),
 				],
@@ -66,40 +68,44 @@ class ChangeSearch extends StatelessWidget {
 }
 
 class DetailRoute extends StatelessWidget {
-	DetailRoute({ this.itinerary });
+	DetailRoute({ this.itinerary, this.passengers });
 	
 	final Itinerary itinerary;
+	List<Passenger> passengers;
 	
 	@override
 	Widget build(BuildContext context) {
 		return Container(
 			padding: EdgeInsets.only(left: 20.0, right: 20.0),
-			child: Column(
-				children: [
-					Row(children:[ Text('Detail Keberangkatan', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)), ]),
-					SizedBox(height: 15.0),
-					Container(
-						constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
-						padding: EdgeInsets.all(15.0),
-						decoration: BoxDecoration(
-							border: Border.all(color: Colors.grey[400], width: 1.0),
-							borderRadius: BorderRadius.circular(5.0),
+			child: InkWell(
+				onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TrainScheduleDetailPage(itinerary: itinerary, passengers: passengers))),
+				child: Column(
+					children: [
+						Row(children:[ Text('Detail Keberangkatan', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)), ]),
+						SizedBox(height: 15.0),
+						Container(
+							constraints: BoxConstraints(minWidth: 400.0, minHeight: 40.0),
+							padding: EdgeInsets.all(15.0),
+							decoration: BoxDecoration(
+								border: Border.all(color: Colors.grey[400], width: 1.0),
+								borderRadius: BorderRadius.circular(5.0),
+							),
+							child:  Row(
+								mainAxisAlignment: MainAxisAlignment.spaceBetween,
+								children: [
+									Column(
+										children: [
+											Row(children:[ Text(itinerary.search.departure.station_name, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), SizedBox(width: 5.0), Icon(Icons.arrow_forward, size: 12.0), SizedBox(width: 5.0), Text(itinerary.search.arrival.station_name, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), ]),
+											SizedBox(height: 5.0),
+											Row(children:[ Route(itinerary.schedule.route.split('-')[0], itinerary.schedule.str_time.split(' ')[0]), SizedBox(width: 5.0), Text('-'), SizedBox(width: 5.0), Route(itinerary.schedule.route.split('-')[1], itinerary.schedule.str_time.split(' ')[1]), SizedBox(width: 5.0), Icon(Icons.grade, size: 8.0), SizedBox(width: 5.0), Text(itinerary.search.date, style: TextStyle(fontSize: 12.0))]),
+										],
+									),
+									Row(children:[ Icon(Icons.arrow_downward, size: 16.0), ]),
+								],
+							),
 						),
-						child:  Row(
-							mainAxisAlignment: MainAxisAlignment.spaceBetween,
-							children: [
-								Column(
-									children: [
-										Row(children:[ Text(itinerary.search.departure.station_name, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), SizedBox(width: 5.0), Icon(Icons.arrow_forward, size: 12.0), SizedBox(width: 5.0), Text(itinerary.search.arrival.station_name, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), ]),
-										SizedBox(height: 5.0),
-										Row(children:[ Route(itinerary.schedule.route.split('-')[0], itinerary.schedule.str_time.split(' ')[0]), SizedBox(width: 5.0), Text('-'), SizedBox(width: 5.0), Route(itinerary.schedule.route.split('-')[1], itinerary.schedule.str_time.split(' ')[1]), SizedBox(width: 5.0), Icon(Icons.grade, size: 8.0), SizedBox(width: 5.0), Text(itinerary.search.date, style: TextStyle(fontSize: 12.0))]),
-									],
-								),
-								Row(children:[ Icon(Icons.arrow_downward, size: 16.0), ]),
-							],
-						),
-					),
-				],
+					],
+				),
 			),
 		);
 	}
