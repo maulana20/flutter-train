@@ -28,7 +28,16 @@ class TrainScheduleDetailPage extends StatelessWidget {
 				child: ListView(
 					padding: EdgeInsets.zero,
 					children: [
-						SizedBox(height: 20.0),
+						Container(
+							padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 20.0, bottom: 20.0),
+							child: Row(
+								mainAxisAlignment: MainAxisAlignment.spaceBetween,
+								children: [
+									Row(children: [Text(itinerary.schedule.ka_name, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)), SizedBox(width: 5.0), Text(itinerary.schedule.journey, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold))]),
+									Text(itinerary.detail.train_class, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold))
+								]
+							),
+						),
 						Container(
 							color: Colors.white,
 							padding: EdgeInsets.all(15.0),
@@ -45,9 +54,34 @@ class TrainScheduleDetailPage extends StatelessWidget {
 								],
 							),
 						),
+						Container(
+							padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 20.0, bottom: 20.0),
+							child: Column(
+								mainAxisAlignment: MainAxisAlignment.start,
+								children: [
+									Price('Harga Dasar', itinerary.fare.publish),
+									SizedBox(height: 5.0),
+									Price('Pajak', itinerary.fare.tax),
+									SizedBox(height: 2.0),
+									Divider(color: Colors.grey),
+									SizedBox(height: 2.0),
+									Price('TOTAL', itinerary.fare.total),
+								],
+							),
+						),
 					],
 				),
 			),
+		);
+	}
+	
+	Row Price(String name, String price) {
+		return Row(
+			mainAxisAlignment: MainAxisAlignment.spaceBetween,
+			children: [
+				Text(name, style: TextStyle(fontSize: 14.0, color: Colors.grey)),
+				Text(price, style: TextStyle(fontSize: 14.0, color: Colors.grey))
+			]
 		);
 	}
 	
@@ -73,6 +107,7 @@ class TrainScheduleDetailPage extends StatelessWidget {
 					],
 				),
 				Column(
+					mainAxisAlignment: MainAxisAlignment.start,
 					children: [
 						Text(hour, style: TextStyle(fontSize: 12.0, color: Colors.grey)),
 						SizedBox(height: 1.0),

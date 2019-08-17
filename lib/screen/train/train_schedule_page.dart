@@ -87,11 +87,13 @@ class _ScheduleDetailTileState extends State<ScheduleDetailTile> {
 	final ScheduleDetail detail;
 	
 	VersatiketApi _versaApi;
+	bool _isLoading = false;
 	
 	@override
 	void initState() {
 		super.initState();
 		_versaApi = VersatiketApi();
+		setState(() { _isLoading = false; } );
 	}
 	
 	Future<void> _alert(BuildContext context, String info) {
@@ -115,6 +117,7 @@ class _ScheduleDetailTileState extends State<ScheduleDetailTile> {
 	}
 	
 	Future _process(Itinerary itinerary) async {
+		setState(() { _isLoading = true; } );
 		await _versaApi.isonlogin();
 		
 		await Future.delayed(const Duration(seconds : 5));
@@ -130,10 +133,14 @@ class _ScheduleDetailTileState extends State<ScheduleDetailTile> {
 				_alert(context, res['content']['reason']);
 			}
 		} else {
+			Fare fare = Fare.fromJson(res['content']);
+			Itinerary _itinerary = Itinerary(search: itinerary.search, schedule: itinerary.schedule, detail: itinerary.detail, fare: fare);
 			List<Passenger> passengers = new List();
-			Navigator.push(context, MaterialPageRoute(builder: (context) => TrainPassengerPage(itinerary: itinerary, passengers: passengers)));
+			
+			Navigator.push(context, MaterialPageRoute(builder: (context) => TrainPassengerPage(itinerary: _itinerary, passengers: passengers)));
 		}
 		
+		setState(() { _isLoading = false; } );
 		// await _versaApi.logout();
 	}
 	
@@ -154,7 +161,7 @@ class _ScheduleDetailTileState extends State<ScheduleDetailTile> {
 		
 		return Card(
 			child: GestureDetector(
-				onTap: () => _process(itinerary),
+				onTap: () => _isLoading ? '' : _process(itinerary),
 				child: Padding(
 					padding: EdgeInsets.all(8.0),
 					child: ListTile(
@@ -171,7 +178,7 @@ class _ScheduleDetailTileState extends State<ScheduleDetailTile> {
 									]
 								),
 								Column( children: [Text('seat', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), Text(detail.seat, style: TextStyle(fontSize: 10.0, color: color_seat))], ),
-								Column( children: [Text(total_amount.withoutFractionDigits, style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), Text(detail.train_class, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: color_class))], ),
+								Column( children: [Text(total_amount.withoutFractionDigits, style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), _isLoading ? SizedBox(child: CircularProgressIndicator(), height: 10.0, width: 10.0 ) : Text(detail.train_class, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: color_class))], ),
 							],
 						),
 					),

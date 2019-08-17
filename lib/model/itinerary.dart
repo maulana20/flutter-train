@@ -27,7 +27,7 @@ class Fare extends Object {
 	final String info;
 	
 	Fare({ this.publish, this.tax, this.total, this.total_curr, this.info });
-	Fare fromJson(Map<String, dynamic> json) {
+	factory Fare.fromJson(Map<String, dynamic> json) {
 		return Fare(
 			publish: json['publish'],
 			tax: json['tax'],
