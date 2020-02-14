@@ -4,10 +4,10 @@ class ScheduleDetail extends Object {
 	String type;
 	String seat;
 	bool disabled;
-	String adult_fare;
-	String infant_fare;
+	// String adult_fare;
+	// String infant_fare;
 	
-	ScheduleDetail({ this.train_name, this.train_class, this.type, this.seat, this.disabled, this.adult_fare, this.infant_fare });
+	ScheduleDetail({ this.train_name, this.train_class, this.type, this.seat, this.disabled });
 	factory ScheduleDetail.fromJson(Map<String, dynamic> json) {
 		return ScheduleDetail(
 			train_name: json['value'],
@@ -15,8 +15,8 @@ class ScheduleDetail extends Object {
 			type: json['type'],
 			seat: json['seat'],
 			disabled: json['disabled'],
-			adult_fare: json['adult_fare'],
-			infant_fare: json['infant_fare'],
+			// adult_fare: json['adult_fare'],
+			// infant_fare: json['infant_fare'],
 		);
 	}
 }

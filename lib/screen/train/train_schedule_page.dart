@@ -56,13 +56,26 @@ class TrainSchedulePage extends StatelessWidget {
 						]
 					),
 				),
-				body: ListView.builder(
-					itemCount: schedules.length,
-					itemBuilder: (context, index) {
-						for (final detail in schedules[index].detail) {
-							return ScheduleDetailTile(search: search, schedule: schedules[index], detail: detail);
-						}
-					},
+				body: Column(
+					children: <Widget>[
+						ListView.builder(
+							shrinkWrap: true,
+							itemCount: schedules.length,
+							itemBuilder: (context, index) {
+								return Column(
+									children: <Widget>[
+										ListView.builder(
+											shrinkWrap: true,
+											itemCount: schedules[index].detail.length,
+											itemBuilder: (ct, i) {
+												return ScheduleDetailTile(search: search, schedule: schedules[index], detail: schedules[index].detail[i]);
+											}
+										),
+									]
+								);
+							},
+						),
+					]
 				),
 			),
 		);
@@ -146,10 +159,10 @@ class _ScheduleDetailTileState extends State<ScheduleDetailTile> {
 	
 	@override
 	Widget build(BuildContext context) {
-		int adult_total = search.adult != null ? int.parse('${detail.adult_fare}') * search.adult : 0;
-		int infant_total = search.infant != null ? int.parse('${detail.infant_fare}') * search.infant : 0;
-		int total = adult_total + infant_total;
-		MoneyFormatterOutput total_amount = FlutterMoneyFormatter(amount: double.parse('${total}')).output;
+		// int adult_total = search.adult != null ? int.parse('${detail.adult_fare}') * search.adult : 0;
+		// int infant_total = search.infant != null ? int.parse('${detail.infant_fare}') * search.infant : 0;
+		// int total = adult_total + infant_total;
+		// MoneyFormatterOutput total_amount = FlutterMoneyFormatter(amount: double.parse('${total}')).output;
 		
 		Itinerary itinerary = Itinerary(search: search, schedule: schedule, detail: detail);
 		
@@ -178,7 +191,7 @@ class _ScheduleDetailTileState extends State<ScheduleDetailTile> {
 									]
 								),
 								Column( children: [Text('seat', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), Text(detail.seat, style: TextStyle(fontSize: 10.0, color: color_seat))], ),
-								Column( children: [Text(total_amount.withoutFractionDigits, style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), _isLoading ? SizedBox(child: CircularProgressIndicator(), height: 10.0, width: 10.0 ) : Text(detail.train_class, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: color_class))], ),
+								// Column( children: [Text(total_amount.withoutFractionDigits, style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)), SizedBox(height: 2.0), _isLoading ? SizedBox(child: CircularProgressIndicator(), height: 10.0, width: 10.0 ) : Text(detail.train_class, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: color_class))], ),
 							],
 						),
 					),
